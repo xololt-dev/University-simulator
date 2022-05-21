@@ -21,8 +21,18 @@ public:
 
 class Drinker : public Student
 {
+	short partyingFrequency;
+	short studyingFrequency;
 public:
-	//musi zdac dwa razy
+	//must pass two times - function needed
+};
+
+class Crammer : public Student
+{
+	short partyingFrequency;
+	short studyingFrequency;
+public:
+	//can fail first time - function needed
 };
 
 #endif

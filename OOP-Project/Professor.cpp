@@ -33,3 +33,23 @@ short Professor::showPTestAmount()
 {
 	return testAmount;
 }
+
+short Lenient::showPKnowledgeSkillCheck()
+{
+	return knowledgeSkillCheck;
+}
+
+short Lenient::showPKnowledgeToGain()
+{
+	return knowledgeToGain;
+}
+
+short Strict::showPKnowledgeSkillCheck()
+{
+	return knowledgeSkillCheck;
+}
+
+short Strict::showPKnowledgeToGain()
+{
+	return knowledgeToGain;
+}
