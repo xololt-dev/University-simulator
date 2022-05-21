@@ -20,4 +20,23 @@ public:
 	short showPTestAmount();
 };
 
+class Strict : public Professor
+{
+	short knowledgeSkillCheck;	//Exercises
+	short knowledgeToGain;		//Lectures
+	bool examCheck;				//Exam
+public:
+	short showPKnowledgeSkillCheck();
+	short showPKnowledgeToGain();
+};
+
+class Lenient : public Professor
+{
+	short knowledgeSkillCheck;	//Exercises
+	short knowledgeToGain;		//Lectures
+	bool examCheck;				//Exam
+public:
+	short showPKnowledgeSkillCheck();
+	short showPKnowledgeToGain();
+};
 #endif
