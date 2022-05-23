@@ -21,7 +21,7 @@ std::string Professor::showPFirstName()
 
 std::string Professor::showPLastName()
 {
-	return std::string(lastName);
+	return lastName;
 }
 
 short Professor::showPCourseDifficulty()
