@@ -33,3 +33,8 @@ bool Student::showSStudying()
 {
 	return studying;
 }
+
+short Student::showSAttendanceFrequency()
+{
+	return attendanceFrequency;
+}

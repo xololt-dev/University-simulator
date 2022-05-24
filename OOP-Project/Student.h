@@ -8,6 +8,7 @@ class Student
 	short fatigue;
 	short semester;
 	bool studying;
+	short attendanceFrequency;
 
 public:
 	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
@@ -16,7 +17,7 @@ public:
 	short showSFatigue();
 	short showSSemester();
 	bool showSStudying();
-	//float tendencyToParty;
+	short showSAttendanceFrequency();
 };
 
 class Drinker : public Student
