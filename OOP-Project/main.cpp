@@ -39,6 +39,7 @@ int main(int argc, char* argv[])
 	
 	staffel.emplace_back();
 
+
 	one.setSParameters(1,10,0,1,1);
 	two.setPParameters(2, "Janusz", "Brodacz", 10, 2, 0);
 	
@@ -55,10 +56,20 @@ int main(int argc, char* argv[])
 		}
 	} while (static_cast <int>(button) != 27);
 
+	do
+	{
+		button=getch();
+		if(static_cast <int>(button)==13)
+		{
+			std::cout<<"Day: "<<countDay<<"\n";
+			countDay++;
+		}
+	}while(static_cast <int>(button)!=27);
+
 	return 0;
 }
 
 void Day()
-{
+{	
 
 }
