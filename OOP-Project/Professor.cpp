@@ -1,5 +1,13 @@
 #include "Professor.h"
 
+Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
+{
+	id = id_;
+	firstName = firstName_;
+	lastName = lastName_;
+	courseDifficulty = courseDifficulty_;
+}
+
 void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, short testAmount_, bool examCheck_)
 {
 	id = id_;
@@ -38,6 +46,26 @@ short Professor::showPTestAmount()
 bool Professor::showPExamCheck()
 {
 	return examCheck;
+}
+
+short Professor::showPDayLecture()
+{
+	return dayLecture;
+}
+
+char Professor::showPOccurenceLecture()
+{
+	return occurrenceLecture;
+}
+
+bool Professor::showPDayExercise(short day_)
+{
+	return dayExercise[day_];
+}
+
+char Professor::showPOccurrenceExercise(short day_)
+{
+	return occurrenceExercise[day_];
 }
 
 short Lenient::showPKnowledgeSkillCheck()

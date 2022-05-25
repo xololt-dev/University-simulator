@@ -4,7 +4,7 @@
 class Student
 {
 	int id;
-	short knowledge;
+	short knowledge;					//vector with knowledge for every prof?
 	short fatigue;
 	short semester;
 	bool studying;

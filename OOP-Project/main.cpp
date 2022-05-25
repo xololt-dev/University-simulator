@@ -16,14 +16,19 @@ https://stackoverflow.com/questions/13091302/stdvector-for-parent-and-child-clas
 #include "Student.h"
 #include "Professor.h"
 #include "Day.h"
+#include "Save.h"
+
+const short semesterLength = 105;
 
 std::vector<Professor> staff;										//vectors to contain Professors and Students
+std::vector<Academic> academics;
 std::vector<Student> classroom;
 std::vector<Strict> staffel;
 std::vector<int> weekEven;
 std::vector<int> weekOdd;
 
-void Day();
+short dayNumber = 0;
+bool evenWeek = 1;
 
 int main(int argc, char* argv[])
 {
@@ -41,9 +46,11 @@ int main(int argc, char* argv[])
 
 	one.setSParameters(1,10,0,1,1);
 	two.setPParameters(2, "Janusz", "Brodacz", 10, 2, 0);
+
+	getFromFile(argv[1]);
 	
 	std::cout << one.showSKnowledge() << "\t" << two.showPLastName();			//short test
-	std::cout <<"\t" << staff[0].showPCourseDifficulty()<< "\t" << staffel[0].showPCourseDifficulty();
+	std::cout << "\t" << staff[0].showPCourseDifficulty()<< "\t" << staffel[0].showPCourseDifficulty();
 
 	do
 	{																			//after each day
@@ -56,9 +63,4 @@ int main(int argc, char* argv[])
 	} while (static_cast <int>(button) != 27);
 
 	return 0;
-}
-
-void Day()
-{
-
 }

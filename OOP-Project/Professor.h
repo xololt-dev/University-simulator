@@ -11,11 +11,19 @@ class Professor
 	short courseDifficulty;
 	short testAmount;
 	bool examCheck;				//Exam
-	//short dayLecture;
-	//char occurrenceLecture;					//O(dd) or E(ven) or B(oth)
-	//short dayExercise[7];
-	//char occurrenceExercise[7];
+	short dayLecture;
+	char occurrenceLecture;					//O(dd) or E(ven) or B(oth)
+	bool dayExercise[5];
+	char occurrenceExercise[5];
+	/*
+	class Lecture
+	{
+		short day;
+	}
+	*/
 public:
+	Professor();
+	Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 	void setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, short testAmount_, bool examCheck_);
 	int showPId();
 	std::string showPFirstName();
@@ -23,7 +31,12 @@ public:
 	short showPCourseDifficulty();
 	short showPTestAmount();
 	bool showPExamCheck();
+	short showPDayLecture();
+	char showPOccurenceLecture();
+	bool showPDayExercise(short day_);
+	char showPOccurrenceExercise(short day_);
 };
+																//professors and exercise ppl
 
 class Strict : public Professor
 {
@@ -41,5 +54,10 @@ class Lenient : public Professor
 public:
 	short showPKnowledgeSkillCheck();
 	short showPKnowledgeToGain();
+};
+
+class Academic
+{
+
 };
 #endif

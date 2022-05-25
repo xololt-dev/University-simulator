@@ -7,10 +7,12 @@
 
 class Day
 {
-	std::vector<int> weekEven;
-	std::vector<int> weekOdd;
+	std::vector<std::vector<int>> weekEven;				// {id(int), type(char)}
+	std::vector<std::vector<int>> weekOdd;
 public:
-	void checkActivities();
+	short checkActivities(short dayNumber_);
+	void getPLessons(std::vector<Professor> &professors_, short weekDay_);
+	void getELessons(std::vector<Academic> &academics_, short weekDay_);
 };
 
 #endif
