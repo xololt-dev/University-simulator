@@ -12,12 +12,12 @@ public:
     void readProfessor(); //receving vector of Proffesors
     
 };
-class Exercise::public Classes
+class Exercise:public Classes
 {
-
+    void test();
 };
-class Lecture::public Classes
+class Lecture:public Classes
 {
-
+    void exam();
 };
 #endif
