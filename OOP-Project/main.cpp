@@ -16,6 +16,8 @@ https://stackoverflow.com/questions/13091302/stdvector-for-parent-and-child-clas
 #include "Student.h"
 #include "Professor.h"
 #include "Day.h"
+#include "Exercise.h"
+#include "Lecture.h"
 
 std::vector<Professor> staff;										//vectors to contain Professors and Students
 std::vector<Student> classroom;
