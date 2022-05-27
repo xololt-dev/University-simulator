@@ -67,7 +67,7 @@ char Professor::showPOccurrenceExercise(short day_)
 {
 	return occurrenceExercise[day_];
 }
-
+/*
 short Lenient::showPKnowledgeSkillCheck()
 {
 	return knowledgeSkillCheck;
@@ -86,4 +86,31 @@ short Strict::showPKnowledgeSkillCheck()
 short Strict::showPKnowledgeToGain()
 {
 	return knowledgeToGain;
+}*/
+Academic::Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
+{
+	id = id_;
+	firstName = firstName_;
+	lastName = lastName_;
+	courseDifficulty = courseDifficulty_;
+}
+
+int Academic::showAId()
+{
+	return id;
+}
+
+std::string Academic::showAFirstName()
+{
+	return firstName;
+}
+
+std::string Academic::showALastName()
+{
+	return lastName;
+}
+
+short Academic::showACourseDifficulty()
+{
+	return courseDifficulty;
 }

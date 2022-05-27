@@ -2,7 +2,10 @@
 #define PROFESSOR_H
 
 #include <string>
-
+/*
+maybe main class Staff (id, fname, lname)
+and then Professor & Academics take after Staff?
+*/
 class Professor
 {
 	int id;
@@ -22,7 +25,7 @@ class Professor
 	}
 	*/
 public:
-	Professor();
+	//Professor();
 	Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 	void setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, short testAmount_, bool examCheck_);
 	int showPId();
@@ -38,7 +41,7 @@ public:
 };
 																//professors and exercise ppl
 
-class Strict : public Professor
+/*class Strict : public Professor
 {
 	short knowledgeSkillCheck;	//Exercises
 	short knowledgeToGain;		//Lectures
@@ -54,10 +57,19 @@ class Lenient : public Professor
 public:
 	short showPKnowledgeSkillCheck();
 	short showPKnowledgeToGain();
-};
+};*/
 
 class Academic
 {
-
+	int id;
+	std::string firstName;
+	std::string lastName;
+	short courseDifficulty;
+public:
+	Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
+	int showAId();
+	std::string showAFirstName();
+	std::string showALastName();
+	short showACourseDifficulty();
 };
 #endif
