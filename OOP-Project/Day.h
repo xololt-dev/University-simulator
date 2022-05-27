@@ -12,5 +12,4 @@ class Day
 public:
 	void checkActivities();
 };
-
 #endif

@@ -14,10 +14,14 @@ public:
 };
 class Exercise:public Classes
 {
-    void test();
+public:
+    void exc(short knowledge, short Knowledgetogain);
+    void test(int id, bool *index, short knowledge, short knowledgeSkillCheck);
 };
 class Lecture:public Classes
 {
-    void exam();
+public:
+    void lec(short knowledge, short Knowledgetogain);
+    void exam(int id, bool *index, short knowledge, short knowledgeSkillCheck);
 };
 #endif

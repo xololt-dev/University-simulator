@@ -9,6 +9,7 @@ class Student
 	short semester;
 	bool studying;
 	short attendanceFrequency;
+	bool index[];
 
 public:
 	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
