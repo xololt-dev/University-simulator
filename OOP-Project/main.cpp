@@ -19,36 +19,32 @@ https://stackoverflow.com/questions/13091302/stdvector-for-parent-and-child-clas
 #include "Save.h"
 
 const short semesterLength = 105;
+const short semesterAmount = 7;
 
 std::vector<Professor> staff;										//vectors to contain Professors and Students
 std::vector<Academic> academics;
 std::vector<Student> classroom;
-//std::vector<Strict> staffel;
 std::vector<int> weekEven;
 std::vector<int> weekOdd;
 
-short dayNumber = 0;
+short dayNumber = 1;												//tracking days passed
 bool evenWeek = 1;
 
 int main(int argc, char* argv[])
 {
 	Student one(1, 10, 0, 1, 1);
 	Professor two(2, "Janusz", "Brodacz", 10);
-	//Strict three;
 
 	unsigned char button;
-	int countDay = 0;
 
 	//three.setPParameters(3, "Januszos", "Brodaczos", 11, 3, 0);
 	//staff.push_back(three);
-	
-	//staffel.emplace_back();
 
-	one.setSParameters(1,10,0,1,1);
+	one.setSParameters(1, 10, 0, 1, 1);
 	two.setPParameters(2, "Janusz", "Brodacz", 10, 2, 0);
 
 	getFromFile(argv[1], staff, academics, classroom);
-	
+
 	std::cout << one.showSKnowledge() << "\t" << two.showPLastName();			//short test
 	std::cout << "\t" << staff.size() << "\n";
 	for (int i = 0; i < staff.size(); i++)															//check if loading from file works
@@ -69,20 +65,10 @@ int main(int argc, char* argv[])
 		button = _getch();
 		if (static_cast <int>(button) == 13)
 		{
-			std::cout << "Day: " << countDay << "\n";
-			countDay++;
+			std::cout << "Day: " << dayNumber << "\n";
+			dayNumber++;
 		}
 	} while (static_cast <int>(button) != 27);
-
-	do
-	{
-		button=getch();
-		if(static_cast <int>(button)==13)
-		{
-			std::cout<<"Day: "<<countDay<<"\n";
-			countDay++;
-		}
-	}while(static_cast <int>(button)!=27);
 
 	return 0;
 }
