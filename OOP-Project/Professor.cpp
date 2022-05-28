@@ -1,20 +1,20 @@
 #include "Professor.h"
 
-Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
+Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_)
 {
 	id = id_;
 	firstName = firstName_;
 	lastName = lastName_;
 	courseDifficulty = courseDifficulty_;
+	examCheck = examCheck_;
 }
 
-void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, short testAmount_, bool examCheck_)
+void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_)
 {
 	id = id_;
 	firstName = firstName_;
 	lastName = lastName_;
 	courseDifficulty = courseDifficulty_;
-	testAmount = testAmount_;
 	examCheck = examCheck_;
 }
 
@@ -38,34 +38,37 @@ short Professor::showPCourseDifficulty()
 	return courseDifficulty;
 }
 
-short Professor::showPTestAmount()
-{
-	return testAmount;
-}
-
 bool Professor::showPExamCheck()
 {
 	return examCheck;
 }
 
-short Professor::showPDayLecture()
+void Professor::Lecture::setLParameters(short day_, char occurence_, int knowledgeToGain_, short currLesson_)
 {
-	return dayLecture;
+	day = day_;
+	occurence = occurence_;
+	knowledgeToGain = knowledgeToGain_;
+	currLesson = currLesson_;
 }
 
-char Professor::showPOccurenceLecture()
+short Professor::Lecture::showLDay()
 {
-	return occurrenceLecture;
+	return day;
 }
 
-bool Professor::showPDayExercise(short day_)
+char Professor::Lecture::showLOccurence()
 {
-	return dayExercise[day_];
+	return occurence;
 }
 
-char Professor::showPOccurrenceExercise(short day_)
+int Professor::Lecture::showLKnowledgeToGain()
 {
-	return occurrenceExercise[day_];
+	return knowledgeToGain;
+}
+
+short Professor::Lecture::showLCurrLesson()
+{
+	return currLesson;
 }
 
 Academic::Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
