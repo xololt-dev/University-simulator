@@ -4,13 +4,14 @@
 class Student
 {
 	int id;
-	short knowledge;
+	short knowledge;					//vector with knowledge for every prof?
 	short fatigue;
 	short semester;
 	bool studying;
 	short attendanceFrequency;
 
 public:
+	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
 	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
 	int showSId();
 	short showSKnowledge();
