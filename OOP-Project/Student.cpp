@@ -1,5 +1,14 @@
 #include "Student.h"
 
+Student::Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_)
+{
+	id = id_;
+	knowledge = knowledge_;
+	fatigue = fatigue_;
+	semester = semester_;
+	studying = studying_;
+}
+
 void Student::setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_)
 {
 	id = id_;
@@ -32,4 +41,9 @@ short Student::showSSemester()
 bool Student::showSStudying()
 {
 	return studying;
+}
+
+short Student::showSAttendanceFrequency()
+{
+	return attendanceFrequency;
 }
