@@ -3,7 +3,57 @@
 
 #include <string>
 
-class Staff																//super class
+class Lesson															//super class to Lecture and Exercise
+{
+protected:
+	short day;
+	char occurence;
+	short knowledgeToGain;
+	short currLesson;							//to track current lesson numeber(every lesson going up by one) to know when to do exam
+	/*
+	bool Exam(short knowledge_, short courseDifficulty_)
+	{
+		if (knowledge_ >= courseDifficulty_)
+			return true;
+		else
+			return false;
+	}
+	short GainKnowledge(short& fatigue_, short& knowledge_, short knowledgeToGain)
+	{
+		//add attendence conditon if not done outside
+		knowledge_ += knowledgeToGain;
+		fatigue_--;
+	}
+	*/
+
+public:
+	short showDay();
+	char showOccurence();
+	short showKnowledgeToGain();
+	short showCurrLesson();
+};
+
+class Exercise : public Lesson											//newly added
+{
+	short testAmount;
+
+public:
+	void setEParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, short testAmount_);
+
+	short showETestAmount();
+};
+
+class Lecture : public Lesson
+{
+	bool examCheck;				//Exam
+
+public:
+	void setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, bool examCheck_);
+
+	bool showLExamCheck();
+};
+
+class Staff																//super class to Professor and Academic
 {
 protected:
 	int id;
@@ -18,69 +68,25 @@ public:
 class Professor : public Staff
 {
 	short courseDifficulty;
-	bool examCheck;				//Exam
 
-	class Lecture
-	{
-		short day;
-		char occurence;
-		short knowledgeToGain;
-		short currLesson;							//to track current lesson numeber(every lesson going up by one) to know when to do exam
-		bool Exam(short knowledge_, short courseDifficulty_)
-		{
-			if (knowledge_ >= courseDifficulty_)
-				return true;
-			else
-				return false;
-		}
-		short GainKnowledge(short& fatigue_, short& knowledge_, short knowledgeToGain)
-		{
-			//add attendence conditon if not done outside
-			knowledge_ += knowledgeToGain;
-			fatigue_--;
-		}
-
-	public:
-		void setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_);
-		short showLDay();
-		char showLOccurence();
-		short showLKnowledgeToGain();
-		short showLCurrLesson();
-	};
 public:
 	Lecture lecture;
 
-	Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_);						//constructor Professor
-	void setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_);
+	Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);						//constructor Professor
+	void setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 
-	short showPCourseDifficulty();
-	bool showPExamCheck();
+	short showPCourseDifficulty();	
 };
 																//professors and exercise ppl
 class Academic : public Staff
 {
 	short courseDifficulty;
 	
-	class Exercises				//newly added
-	{
-		short day;
-		char occurence;
-		short knowledgeToGain;
-		short currLesson;
-		short testAmount;
-	
-	public:
-		void setEParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_);
-		short showEDay();
-		char showEOccurence();
-		short showEKnowledgeToGain();
-		short showECurrLesson();
-		short showETestAmount();
-	};
 public:
-	Exercises exercise;
+	Exercise exercise;
 
 	Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);				//constructor Academic
+	void setAParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 
 	short showACourseDifficulty();
 };

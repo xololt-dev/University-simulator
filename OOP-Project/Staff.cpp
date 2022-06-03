@@ -1,5 +1,53 @@
 #include "Staff.h"
 
+short Lesson::showDay()
+{
+	return day;
+}
+
+char Lesson::showOccurence()
+{
+	return occurence;
+}
+
+short Lesson::showKnowledgeToGain()
+{
+	return knowledgeToGain;
+}
+
+short Lesson::showCurrLesson()
+{
+	return currLesson;
+}
+
+void Lecture::setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, bool examCheck_)
+{
+	day = day_;
+	occurence = occurence_;
+	knowledgeToGain = knowledgeToGain_;
+	currLesson = currLesson_;
+	examCheck = examCheck_;
+}
+
+bool Lecture::showLExamCheck()
+{
+	return examCheck;
+}
+
+void Exercise::setEParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, short testAmount_)
+{
+	day = day_;
+	occurence = occurence_;
+	knowledgeToGain = knowledgeToGain_;
+	currLesson = currLesson_;
+	testAmount = testAmount_;
+}
+
+short Exercise::showETestAmount()
+{
+	return testAmount;
+}
+
 int Staff::showId()
 {
 	return id;
@@ -15,35 +63,28 @@ std::string Staff::showLastName()
 	return lastName;
 }
 
-Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_)
+Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {
 	id = id_;
 	firstName = firstName_;
 	lastName = lastName_;
 	courseDifficulty = courseDifficulty_;
-	examCheck = examCheck_;
 }
 
-void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_)
+void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {
 	id = id_;
 	firstName = firstName_;
 	lastName = lastName_;
 	courseDifficulty = courseDifficulty_;
-	examCheck = examCheck_;
 }
 
 short Professor::showPCourseDifficulty()
 {
 	return courseDifficulty;
 }
-
-bool Professor::showPExamCheck()
-{
-	return examCheck;
-}
-
-void Professor::Lecture::setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_)
+/*
+void Professor::Lesson::setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_)
 {
 	day = day_;
 	occurence = occurence_;
@@ -51,27 +92,35 @@ void Professor::Lecture::setLParameters(short day_, char occurence_, short knowl
 	currLesson = currLesson_;
 }
 
-short Professor::Lecture::showLDay()
+short Professor::Lesson::showDay()
 {
 	return day;
 }
 
-char Professor::Lecture::showLOccurence()
+char Professor::Lesson::showOccurence()
 {
 	return occurence;
 }
 
-short Professor::Lecture::showLKnowledgeToGain()
+short Professor::Lesson::showKnowledgeToGain()
 {
 	return knowledgeToGain;
 }
 
-short Professor::Lecture::showLCurrLesson()
+short Professor::Lesson::showCurrLesson()
 {
 	return currLesson;
-}
+}*/
 
 Academic::Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
+{
+	id = id_;
+	firstName = firstName_;
+	lastName = lastName_;
+	courseDifficulty = courseDifficulty_;
+}
+
+void Academic::setAParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {
 	id = id_;
 	firstName = firstName_;
