@@ -21,13 +21,14 @@ void updateStatus(std::vector<Professor>& professors_, std::vector<Academic>& ac
 	std::cout << "Professors: \n";
 	for (int i = 0; i < professors_.size(); i++)
 	{
-		std::cout << professors_[i].Staff::showId() << "\t" << professors_[i].Staff::showFirstName() << "\t" << professors_[i].Staff::showLastName() << "\t" << professors_[i].showPCourseDifficulty() << "\t" << professors_[i].showPExamCheck();
-		std::cout << "\t" << professors_[i].lecture.showLDay() << "\t" << professors_[i].lecture.showLOccurence() << "\t" << professors_[i].lecture.showLKnowledgeToGain() << "\n";
+		std::cout << professors_[i].Staff::showId() << "\t" << professors_[i].Staff::showFirstName() << "\t" << professors_[i].Staff::showLastName() << "\t" << professors_[i].showPCourseDifficulty();
+		std::cout << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
 	}
 	std::cout << "Academics: \n";
 	for (int i = 0; i < academics_.size(); i++)
 	{
-		std::cout << academics_[i].Staff::showId() << "\t" << academics_[i].Staff::showFirstName() << "\t" << academics_[i].Staff::showLastName() << "\t" << academics_[i].showACourseDifficulty() << "\n";
+		std::cout << academics_[i].Staff::showId() << "\t" << academics_[i].Staff::showFirstName() << "\t" << academics_[i].Staff::showLastName() << "\t" << academics_[i].showACourseDifficulty();
+		std::cout << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
 	}
 	std::cout << "Classroom: \n";
 	for (int i = 0; i < classroom_.size(); i++)
@@ -44,10 +45,10 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 
 	for (short i = 0; i < professors_.size(); i++)
 	{
-		if (professors_[i].lecture.showLDay() == weekDay_)
+		if (professors_[i].lecture.showDay() == weekDay_)
 		{
 			//there is a lecture from professor i on this day (without odd/even)
-			if (!((professors_[i].lecture.showLOccurence() == '0' && !isOdd_) || (professors_[i].lecture.showLOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
+			if (!((professors_[i].lecture.showOccurence() == '0' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
 			{
 				/*
 				there is a lecture from professor i on this day (WITH odd/even)			
