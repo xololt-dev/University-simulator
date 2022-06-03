@@ -25,6 +25,8 @@ std::vector<Student> classroom;
 
 short dayNumber = 1;												//tracking days passed
 bool evenWeek = 1;
+short semesterNumber = 1;
+short simulationNumber = 1;
 
 int main(int argc, char* argv[])
 {
