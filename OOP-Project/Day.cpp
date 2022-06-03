@@ -28,7 +28,7 @@ void updateStatus(std::vector<Professor>& professors_, std::vector<Academic>& ac
 	for (int i = 0; i < academics_.size(); i++)
 	{
 		std::cout << academics_[i].Staff::showId() << "\t" << academics_[i].Staff::showFirstName() << "\t" << academics_[i].Staff::showLastName() << "\t" << academics_[i].showACourseDifficulty();
-		std::cout << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
+		std::cout << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
 	}
 	std::cout << "Classroom: \n";
 	for (int i = 0; i < classroom_.size(); i++)
@@ -58,13 +58,13 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 				{
 					if (students_[j].showSFatigue() < 89)
 					{
-						knowledgeAfter = students_[j].showSKnowledge() + (professors_[i].showPCourseDifficulty()) / 5;
+						knowledgeAfter = students_[j].showSKnowledge() + professors_[i].lecture.showKnowledgeToGain();
 						fatigueAfter = students_[j].showSFatigue() + 10;
 						students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
 					}
 					else
 					{
-						knowledgeAfter = students_[j].showSKnowledge() - (professors_[i].showPCourseDifficulty()) / 5;
+						knowledgeAfter = students_[j].showSKnowledge() - professors_[i].lecture.showKnowledgeToGain();
 						fatigueAfter = students_[j].showSFatigue() - 10;
 						students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());
 					}
@@ -74,7 +74,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 	}
 }
 
-void getExercises(std::vector<Academic>& academics_, short dayNumber_, bool isOdd_)						//searches thru academics to figure out which exercises happen on that day
+void getExercises(std::vector<Academic>& academics_, std::vector<Student>& students_, short dayNumber_, bool isOdd_)						//searches thru academics to figure out which exercises happen on that day
 {
 	short weekDay_ = fmod(dayNumber_, 7);
 	short knowledgeAfter = 0;
@@ -82,12 +82,34 @@ void getExercises(std::vector<Academic>& academics_, short dayNumber_, bool isOd
 
 	for (short i = 0; i < academics_.size(); i++)
 	{
-		/*if (academics_[i].showPDayLecture() == weekDay_)
+		if (academics_[i].exercise.showDay() == weekDay_)
 		{
 			//there is an exercise with the academic on this day (without odd/even)
+			if (!((academics_[i].exercise.showOccurence() == '0' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
+			{
+				/*
+				there is a lecture from professor i on this day (WITH odd/even)
+				give student exp if attending the lecture
+				*/
+				for (short j = 0; j < students_.size(); j++)
+				{
+					if (students_[j].showSFatigue() < 89)
+					{
+						knowledgeAfter = students_[j].showSKnowledge() + academics_[i].exercise.showKnowledgeToGain();
+						fatigueAfter = students_[j].showSFatigue() + 10;
+						students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
+					}
+					else
+					{
+						knowledgeAfter = students_[j].showSKnowledge() - academics_[i].exercise.showKnowledgeToGain();
+						fatigueAfter = students_[j].showSFatigue() - 10;
+						students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());
+					}
+				}
+			}
 		}
 		
-		needs to have a check for tests (2 tests equals test in the middle of semester and at the end, three = 1/3 of semester, 2/3 and end etc etc)
-		*/
+		//needs to have a check for tests (2 tests equals test in the middle of semester and at the end, three = 1/3 of semester, 2/3 and end etc etc)
+
 	}
 }
