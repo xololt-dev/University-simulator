@@ -19,7 +19,7 @@ professors - max cap or not?
 const short semesterLength = 105;
 const short semesterAmount = 7;
 
-std::vector<Professor> staff;										//vectors to contain Professors, Academics and Students
+std::vector<Professor> professors;										//vectors to contain Professors, Academics and Students
 std::vector<Academic> academics;
 std::vector<Student> classroom;
 
@@ -32,9 +32,9 @@ int main(int argc, char* argv[])
 {
 	unsigned char button;
 
-	getFromFile(argv[1], staff, academics, classroom);
+	getFromFile(argv[1], professors, academics, classroom);
 
-	updateStatus(staff, academics, classroom);
+	updateStatus(professors, academics, classroom);
 	
 	do
 	{																			//after each day
@@ -42,8 +42,9 @@ int main(int argc, char* argv[])
 		if (static_cast <int>(button) == 13)									//if enter pressed, go to thru the day
 		{
 			std::cout << "Day: " << dayNumber << "\n";
-			getLectures(staff, classroom, dayNumber, isOdd(dayNumber));
-			updateStatus(staff, academics, classroom);
+			getLectures(professors, classroom, dayNumber, isOdd(dayNumber));
+			getExercises(academics, classroom, dayNumber, isOdd(dayNumber));
+			updateStatus(professors, academics, classroom);
 			dayNumber++;
 		}
 	} while (static_cast <int>(button) != 27);									//ESC stops the simulation
