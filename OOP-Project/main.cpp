@@ -15,6 +15,7 @@ professors - max cap or not?
 #include "Staff.h"
 #include "Day.h"
 #include "Save.h"
+#include "Afterhours.h"
 
 const short semesterLength = 105;
 const short semesterAmount = 7;
@@ -42,8 +43,9 @@ int main(int argc, char* argv[])
 		if (static_cast <int>(button) == 13)									//if enter pressed, go to thru the day
 		{
 			std::cout << "Day: " << dayNumber << "\n";
-			getLectures(professors, classroom, dayNumber, isOdd(dayNumber));
+			getLectures(professors, classroom, dayNumber, isOdd(dayNumber), semesterNumber);
 			getExercises(academics, classroom, dayNumber, isOdd(dayNumber));
+			Afterhours(classroom, isWeekend(dayNumber));
 			updateStatus(professors, academics, classroom);
 			dayNumber++;
 		}
