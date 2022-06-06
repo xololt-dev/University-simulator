@@ -139,12 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Day.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Professor.cpp" />
+    <ClCompile Include="Save.cpp" />
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Professor.h" />
+    <ClInclude Include="Save.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="Day.h" />
   </ItemGroup>

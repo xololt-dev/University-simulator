@@ -1,12 +1,20 @@
 #include "Professor.h"
 
-void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, short testAmount_, bool examCheck_)
+Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_)
 {
 	id = id_;
 	firstName = firstName_;
 	lastName = lastName_;
 	courseDifficulty = courseDifficulty_;
-	testAmount = testAmount_;
+	examCheck = examCheck_;
+}
+
+void Professor::setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_, bool examCheck_)
+{
+	id = id_;
+	firstName = firstName_;
+	lastName = lastName_;
+	courseDifficulty = courseDifficulty_;
 	examCheck = examCheck_;
 }
 
@@ -30,32 +38,63 @@ short Professor::showPCourseDifficulty()
 	return courseDifficulty;
 }
 
-short Professor::showPTestAmount()
-{
-	return testAmount;
-}
-
 bool Professor::showPExamCheck()
 {
 	return examCheck;
 }
 
-short Lenient::showPKnowledgeSkillCheck()
+void Professor::Lecture::setLParameters(short day_, char occurence_, int knowledgeToGain_, short currLesson_)
 {
-	return knowledgeSkillCheck;
+	day = day_;
+	occurence = occurence_;
+	knowledgeToGain = knowledgeToGain_;
+	currLesson = currLesson_;
 }
 
-short Lenient::showPKnowledgeToGain()
+short Professor::Lecture::showLDay()
+{
+	return day;
+}
+
+char Professor::Lecture::showLOccurence()
+{
+	return occurence;
+}
+
+int Professor::Lecture::showLKnowledgeToGain()
 {
 	return knowledgeToGain;
 }
 
-short Strict::showPKnowledgeSkillCheck()
+short Professor::Lecture::showLCurrLesson()
 {
-	return knowledgeSkillCheck;
+	return currLesson;
 }
 
-short Strict::showPKnowledgeToGain()
+Academic::Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {
-	return knowledgeToGain;
+	id = id_;
+	firstName = firstName_;
+	lastName = lastName_;
+	courseDifficulty = courseDifficulty_;
+}
+
+int Academic::showAId()
+{
+	return id;
+}
+
+std::string Academic::showAFirstName()
+{
+	return firstName;
+}
+
+std::string Academic::showALastName()
+{
+	return lastName;
+}
+
+short Academic::showACourseDifficulty()
+{
+	return courseDifficulty;
 }
