@@ -10,21 +10,6 @@ protected:
 	char occurence;
 	short knowledgeToGain;
 	short currLesson;							//to track current lesson numeber(every lesson going up by one) to know when to do exam
-	/*
-	bool Exam(short knowledge_, short courseDifficulty_)
-	{
-		if (knowledge_ >= courseDifficulty_)
-			return true;
-		else
-			return false;
-	}
-	short GainKnowledge(short& fatigue_, short& knowledge_, short knowledgeToGain)
-	{
-		//add attendence conditon if not done outside
-		knowledge_ += knowledgeToGain;
-		fatigue_--;
-	}
-	*/
 
 public:
 	short showDay();
@@ -46,7 +31,21 @@ public:
 class Lecture : public Lesson
 {
 	bool examCheck;				//Exam
-
+	/*
+	bool Exam(short knowledge_, short courseDifficulty_)
+	{
+		if (knowledge_ >= courseDifficulty_)
+			return true;
+		else
+			return false;
+	}
+	short GainKnowledge(short& fatigue_, short& knowledge_, short knowledgeToGain)
+	{
+		//add attendence conditon if not done outside
+		knowledge_ += knowledgeToGain;
+		fatigue_--;
+	}
+	*/
 public:
 	void setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, bool examCheck_);
 
@@ -77,7 +76,7 @@ public:
 
 	short showPCourseDifficulty();	
 };
-																//professors and exercise ppl
+																
 class Academic : public Staff
 {
 	short courseDifficulty;
