@@ -30,6 +30,9 @@
     <ClCompile Include="Save.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+	<ClCompile Include="Afterhours.cpp">
+		<Filter>Pliki źródłowe</Filter>
+	</ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Student.h">
@@ -44,5 +47,8 @@
     <ClInclude Include="Save.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+	<ClInclude Include="Afterhours.h">
+	  <Filter>Pliki nagłówkowe</Filter>
+	</ClInclude>
   </ItemGroup>
 </Project>
