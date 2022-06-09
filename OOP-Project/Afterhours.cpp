@@ -33,39 +33,39 @@ void Afterhours(std::vector<Student>& classroom_, bool isWeekend_ )
         for(int i=0; i<classroom_.size();i++)
         {
             if(random>=0 && random<4)
-                goRelax(i, classroom_);
+                goRelax(classroom_[i]);
             else if(random>=4 && random<8)
-                goStudy(i, classroom_);
+                goStudy(classroom_[i]);
             else if(random==8)
             {
-                goParty(i, classroom_);
+                goParty(classroom_[i]);
                 break;
             }
-            getSleep(i, classroom_);
+            getSleep(classroom_[i]);
         }
     }
 }
-void getSleep(int i_, std::vector<Student>& classroom_)
+void getSleep(Student classroom_)
 {
     //passive bonus that lowers fatigue
-    classroom_[i_].updateFatigue(-3);
+    classroom_.updateFatigue(-3);
 }
-void goRelax(int i_, std::vector<Student>& classroom_)
+void goRelax(Student classroom_)
 {
     //opcianal fatiuge lowering
-    classroom_[i_].updateFatigue(-1);
+    classroom_.updateFatigue(-1);
 }
-void goStudy(int i_, std::vector<Student>& classroom_)
+void goStudy(Student classroom_)
 {
     //opcional small knowledge gain
-    classroom_[i_].updateKnowledge(1);
+    classroom_.updateKnowledge(1);
 }
-void goParty(int i_, std::vector<Student>& classroom_) 
+void goParty(Student classroom_) 
 {
     //random event
     //this funcion cancels sleep bonus and lowers knowledge by a point (done up there in aftehours())
-    classroom_[i_].updateFatigue(3);
-    classroom_[i_].updateKnowledge(-2);
+    classroom_.updateFatigue(3);
+    classroom_.updateKnowledge(-2);
 }
 //possible other random events
 //just add funcion here and increase random module and else if case

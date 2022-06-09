@@ -8,11 +8,11 @@
 bool isWeekend(short dayNumber_);
 void Afterhours(std::vector<Student>& classroom_, bool isWeekend_ );
 
-void getSleep(int i_, std::vector<Student>& classroom_);
+void getSleep(Student classroom_);
 
-void goRelax(int i_, std::vector<Student>& classroom_);
-void goStudy(int i_, std::vector<Student>& classroom_);
+void goRelax(Student classroom_);
+void goStudy(Student classroom_);
 
-void goParty(int i_, std::vector<Student>& classroom_);
+void goParty(Student classroom_);
 
 #endif
