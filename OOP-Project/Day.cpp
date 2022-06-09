@@ -21,13 +21,13 @@ void updateStatus(std::vector<Professor>& professors_, std::vector<Academic>& ac
 	std::cout << "Professors: \n";
 	for (int i = 0; i < professors_.size(); i++)
 	{
-		std::cout << professors_[i].Staff::showId() << "\t" << professors_[i].Staff::showFirstName() << "\t" << professors_[i].Staff::showLastName() << "\t" << professors_[i].showPCourseDifficulty();
+		std::cout << professors_[i].showId() << "\t" << professors_[i].showFirstName() << "\t" << professors_[i].showLastName() << "\t" << professors_[i].showPCourseDifficulty();
 		std::cout << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
 	}
 	std::cout << "Academics: \n";
 	for (int i = 0; i < academics_.size(); i++)
 	{
-		std::cout << academics_[i].Staff::showId() << "\t" << academics_[i].Staff::showFirstName() << "\t" << academics_[i].Staff::showLastName() << "\t" << academics_[i].showACourseDifficulty();
+		std::cout << academics_[i].showId() << "\t" << academics_[i].showFirstName() << "\t" << academics_[i].showLastName() << "\t" << academics_[i].showACourseDifficulty();
 		std::cout << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
 	}
 	std::cout << "Classroom: \n";
@@ -64,6 +64,8 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 							{
 								knowledgeAfter = students_[j].showSKnowledge() + professors_[i].lecture.showKnowledgeToGain();
 								fatigueAfter = students_[j].showSFatigue() + 10;
+								//students_[j].setSKnowledge(knowledgeAfter);				//to change later!
+								//students_[j].setSFatigue(fatigueAfter);
 								students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
 							}
 							else

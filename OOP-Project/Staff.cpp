@@ -1,25 +1,5 @@
 #include "Staff.h"
 
-short Lesson::showDay()
-{
-	return day;
-}
-
-char Lesson::showOccurence()
-{
-	return occurence;
-}
-
-short Lesson::showKnowledgeToGain()
-{
-	return knowledgeToGain;
-}
-
-short Lesson::showCurrLesson()
-{
-	return currLesson;
-}
-
 void Lecture::setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, bool examCheck_)
 {
 	day = day_;
@@ -47,7 +27,7 @@ short Exercise::showETestAmount()
 {
 	return testAmount;
 }
-
+/*
 int Staff::showId()
 {
 	return id;
@@ -61,7 +41,7 @@ std::string Staff::showFirstName()
 std::string Staff::showLastName()
 {
 	return lastName;
-}
+}*/
 
 Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {
