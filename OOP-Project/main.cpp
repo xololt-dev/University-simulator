@@ -24,7 +24,7 @@ std::vector<Professor> professors;										//vectors to contain Professors, Aca
 std::vector<Academic> academics;
 std::vector<Student> classroom;
 
-short dayNumber = 1;												//tracking days passed
+short dayNumber = 0;												//tracking days passed
 bool evenWeek = 1;
 short semesterNumber = 1;
 short simulationNumber = 1;
@@ -32,21 +32,21 @@ short simulationNumber = 1;
 int main(int argc, char* argv[])
 {
 	unsigned char button;
-
+	
 	getFromFile(argv[1], professors, academics, classroom);
 
-	updateStatus(professors, academics, classroom);
+	saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);
+	dayNumber++;
 	
 	do
 	{																			//after each day
 		button = _getch();
 		if (static_cast <int>(button) == 13)									//if enter pressed, go to thru the day
 		{
-			std::cout << "Day: " << dayNumber << "\n";
 			getLectures(professors, classroom, dayNumber, isOdd(dayNumber), semesterNumber);
 			getExercises(academics, classroom, dayNumber, isOdd(dayNumber));
 			Afterhours(classroom, isWeekend(dayNumber));
-			updateStatus(professors, academics, classroom);
+			saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);	
 			dayNumber++;
 		}
 	} while (static_cast <int>(button) != 27);									//ESC stops the simulation
