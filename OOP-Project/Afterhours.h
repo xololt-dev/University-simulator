@@ -7,11 +7,11 @@
 
 bool isWeekend(short dayNumber_);
 
-void getSleep(std::vector<Student>& classroom_);
+short getSleep();
 
-void goRelax(std::vector<Student>& classroom_);
-void goStudy(std::vector<Student>& classroom_);
+short goRelax();
+short goStudy();
 
-void goParty(std::vector<Student>& classroom_);
+short goParty(std::vector<Student>& classroom_);
 
 #endif
