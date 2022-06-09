@@ -16,28 +16,7 @@ if yes, go thru todays activities (getLectures, getExercises)
 otherwise, reduce fatigue
 */
 
-void updateStatus(std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_)		//displays full information about the simulation during the current day
-{
-	std::cout << "Professors: \n";
-	for (int i = 0; i < professors_.size(); i++)
-	{
-		std::cout << professors_[i].showId() << "\t" << professors_[i].showFirstName() << "\t" << professors_[i].showLastName() << "\t" << professors_[i].showPCourseDifficulty();
-		std::cout << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
-	}
-	std::cout << "Academics: \n";
-	for (int i = 0; i < academics_.size(); i++)
-	{
-		std::cout << academics_[i].showId() << "\t" << academics_[i].showFirstName() << "\t" << academics_[i].showLastName() << "\t" << academics_[i].showACourseDifficulty();
-		std::cout << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
-	}
-	std::cout << "Classroom: \n";
-	for (int i = 0; i < classroom_.size(); i++)
-	{
-		std::cout << classroom_[i].showSId() << "\t" << classroom_[i].showSKnowledge() << "\t" << classroom_[i].showSFatigue() << "\t" << classroom_[i].showSSemester() << "\t" << classroom_[i].showSStudying() << "\n";
-	}
-}
-
-void getLectures(std::vector<Professor>& professors_, std::vector<Student>& students_, short dayNumber_, bool isOdd_, short semesterNumber_)			//searches thru professors to figure out which Lectures happen on that day
+void getLectures(std::vector<Professor>& professors_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, short semesterNumber_)			//searches thru professors to figure out which Lectures happen on that day
 {
 	short weekDay_ = fmod(dayNumber_, 7);
 	short knowledgeAfter = 0;
@@ -56,23 +35,23 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 					there is a lecture from professor i on this day (WITH odd/even)
 					give student exp if attending the lecture
 					*/
-					for (short j = 0; j < students_.size(); j++)
+					for (short j = 0; j < classroom_.size(); j++)
 					{
-						if (students_[j].showSStudying())			//checking if student is still studying 
+						if (classroom_[j].showSStudying())			//checking if student is still studying 
 						{
-							if (students_[j].showSFatigue() < 89)
+							if (classroom_[j].showSFatigue() < 89)
 							{
-								knowledgeAfter = students_[j].showSKnowledge() + professors_[i].lecture.showKnowledgeToGain();
-								fatigueAfter = students_[j].showSFatigue() + 10;
-								//students_[j].setSKnowledge(knowledgeAfter);				//to change later!
-								//students_[j].setSFatigue(fatigueAfter);
-								students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
+								knowledgeAfter = classroom_[j].showSKnowledge() + professors_[i].lecture.showKnowledgeToGain();
+								fatigueAfter = classroom_[j].showSFatigue() + 10;
+								//classroom_[j].setSKnowledge(knowledgeAfter);				//to change later!
+								//classroom_[j].setSFatigue(fatigueAfter);
+								classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
 							}
 							else
 							{
-								knowledgeAfter = students_[j].showSKnowledge() - professors_[i].lecture.showKnowledgeToGain();
-								fatigueAfter = students_[j].showSFatigue() - 10;
-								students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());
+								knowledgeAfter = classroom_[j].showSKnowledge() - professors_[i].lecture.showKnowledgeToGain();
+								fatigueAfter = classroom_[j].showSFatigue() - 10;
+								classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());
 							}
 						}						
 					}
@@ -92,15 +71,15 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 				if (examVariable > 1)	examVariablePow = 1 - (static_cast<double>(professors_[i].showPCourseDifficulty()) / static_cast<double>(100));			//making sure formula works (at 0.5 point it misbehaves without change)
 				else	examVariablePow = static_cast<double>(professors_[i].showPCourseDifficulty()) / static_cast<double>(100);
 
-				for (short j = 0; j < students_.size(); j++)	//go thru exam for each student
+				for (short j = 0; j < classroom_.size(); j++)	//go thru exam for each student
 				{
-					if (students_[j].showSStudying())
+					if (classroom_[j].showSStudying())
 					{
-						double eqVar = examVariable * static_cast<double>(students_[j].showSKnowledge()) / 100 * 7 / static_cast<double>(semesterNumber_);			//if failed exam, end of simulation for that person
+						double eqVar = examVariable * static_cast<double>(classroom_[j].showSKnowledge()) / 100 * 7 / static_cast<double>(semesterNumber_);			//if failed exam, end of simulation for that person
 
 						if (!(eqVar > 1))				//if eqVar is above 1, the student has more knowledge than max required for this semester aka automatic pass
 						{
-							if ((1 / (1 + pow(((1 - (eqVar / examVariable)) / eqVar), examVariablePow))) < 0.5000)	students_[j].setSParameters(students_[j].showSId(), students_[j].showSKnowledge(), students_[j].showSFatigue(), students_[j].showSSemester(), 0);
+							if ((1 / (1 + pow(((1 - (eqVar / examVariable)) / eqVar), examVariablePow))) < 0.5000)	classroom_[j].setSParameters(classroom_[j].showSId(), classroom_[j].showSKnowledge(), classroom_[j].showSFatigue(), classroom_[j].showSSemester(), 0);
 						}
 					}
 				}
@@ -109,7 +88,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& stud
 	}
 }
 
-void getExercises(std::vector<Academic>& academics_, std::vector<Student>& students_, short dayNumber_, bool isOdd_)						//searches thru academics to figure out which exercises happen on that day
+void getExercises(std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_)						//searches thru academics to figure out which exercises happen on that day
 {
 	short weekDay_ = fmod(dayNumber_, 7);
 	short knowledgeAfter = 0;
@@ -126,19 +105,19 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& stude
 				there is a lecture from professor i on this day (WITH odd/even)
 				give student exp if attending the lecture
 				*/
-				for (short j = 0; j < students_.size(); j++)
+				for (short j = 0; j < classroom_.size(); j++)
 				{
-					if (students_[j].showSFatigue() < 89)
+					if (classroom_[j].showSFatigue() < 89)
 					{
-						knowledgeAfter = students_[j].showSKnowledge() + academics_[i].exercise.showKnowledgeToGain();
-						fatigueAfter = students_[j].showSFatigue() + 10;
-						students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
+						knowledgeAfter = classroom_[j].showSKnowledge() + academics_[i].exercise.showKnowledgeToGain();
+						fatigueAfter = classroom_[j].showSFatigue() + 10;
+						classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
 					}
 					else
 					{
-						knowledgeAfter = students_[j].showSKnowledge() - academics_[i].exercise.showKnowledgeToGain();
-						fatigueAfter = students_[j].showSFatigue() - 10;
-						students_[j].setSParameters(students_[j].showSId(), knowledgeAfter, fatigueAfter, students_[j].showSSemester(), students_[j].showSStudying());
+						knowledgeAfter = classroom_[j].showSKnowledge() - academics_[i].exercise.showKnowledgeToGain();
+						fatigueAfter = classroom_[j].showSFatigue() - 10;
+						classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());
 					}
 				}
 			}
