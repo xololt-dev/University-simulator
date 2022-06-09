@@ -4,15 +4,17 @@
 class Student
 {
 	int id;
+	short knowledge;					//vector with knowledge for every prof?
+	short fatigue;
 	short semester;
 	bool studying;
 	short attendanceFrequency;
 
 public:
-	short knowledge;					//vector with knowledge for every prof?
-	short fatigue;
 	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
 	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
+	void updateKnowledge(short knowledge_);
+	void updateFatigue(short fatigue_);
 	int showSId();
 	short showSKnowledge();
 	short showSFatigue();

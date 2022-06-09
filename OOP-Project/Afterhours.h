@@ -6,12 +6,13 @@
 #include <vector>
 
 bool isWeekend(short dayNumber_);
+void Afterhours(std::vector<Student>& classroom_, bool isWeekend_ );
 
-short getSleep();
+void getSleep(int i_, std::vector<Student>& classroom_);
 
-short goRelax();
-short goStudy();
+void goRelax(int i_, std::vector<Student>& classroom_);
+void goStudy(int i_, std::vector<Student>& classroom_);
 
-short goParty(std::vector<Student>& classroom_);
+void goParty(int i_, std::vector<Student>& classroom_);
 
 #endif

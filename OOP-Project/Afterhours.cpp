@@ -33,36 +33,39 @@ void Afterhours(std::vector<Student>& classroom_, bool isWeekend_ )
         for(int i=0; i<classroom_.size();i++)
         {
             if(random>=0 && random<4)
-                goRelax();
+                goRelax(i, classroom_);
             else if(random>=4 && random<8)
-                goStudy();
+                goStudy(i, classroom_);
             else if(random==8)
             {
-                goParty(classroom_[i].fatigue, classroom_[i].knowledge);
+                goParty(i, classroom_);
                 break;
             }
-            getSleep(classroom_[i].fatigue);
+            getSleep(i, classroom_);
         }
     }
 }
-short getSleep()
+void getSleep(int i_, std::vector<Student>& classroom_)
 {
     //passive bonus that lowers fatigue
-    return -3;
+    classroom_[i_].updateFatigue(-3);
 }
-short goRelax()
+void goRelax(int i_, std::vector<Student>& classroom_)
 {
     //opcianal fatiuge lowering
-    return -1;
+    classroom_[i_].updateFatigue(-1);
 }
-short goStudy()
+void goStudy(int i_, std::vector<Student>& classroom_)
 {
     //opcional small knowledge gain
-    return 1;
+    classroom_[i_].updateKnowledge(1);
 }
-void goParty()
+void goParty(int i_, std::vector<Student>& classroom_) 
 {
     //random event
-    //this funcion cancels sleep bonus and lowers knowledge by a point (not done here)
-    return -1, 3;
+    //this funcion cancels sleep bonus and lowers knowledge by a point (done up there in aftehours())
+    classroom_[i_].updateFatigue(3);
+    classroom_[i_].updateKnowledge(-2);
 }
+//possible other random events
+//just add funcion here and increase random module and else if case

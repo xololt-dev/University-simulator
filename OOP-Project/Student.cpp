@@ -17,7 +17,14 @@ void Student::setSParameters(int id_, short knowledge_, short fatigue_, short se
 	semester = semester_;
 	studying = studying_;
 }
-
+void Student::updateFatigue(short fatigue_)
+{
+	fatigue+=fatigue_;
+}
+void Student:: updateKnowledge(short knowledge_)
+{
+	knowledge+=knowledge_;
+}
 int Student::showSId()
 {
 	return id;
