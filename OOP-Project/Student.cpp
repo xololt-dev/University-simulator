@@ -18,6 +18,16 @@ void Student::setSParameters(int id_, short knowledge_, short fatigue_, short se
 	studying = studying_;
 }
 
+void Student::setSFatigue(short fatigue_)
+{
+	fatigue = fatigue_;
+}
+
+void Student::setSKnowledge(short knowledge_)
+{
+	knowledge = knowledge_;
+}
+
 int Student::showSId()
 {
 	return id;

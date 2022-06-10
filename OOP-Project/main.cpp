@@ -12,41 +12,44 @@ professors - max cap or not?
 #include <conio.h>
 #include <math.h>
 #include "Student.h"
-#include "Professor.h"
+#include "Staff.h"
 #include "Day.h"
 #include "Save.h"
+#include "Afterhours.h"
 
 const short semesterLength = 105;
 const short semesterAmount = 7;
 
-std::vector<Professor> staff;										//vectors to contain Professors and Students
+std::vector<Professor> professors;										//vectors to contain Professors, Academics and Students
 std::vector<Academic> academics;
 std::vector<Student> classroom;
-std::vector<int> weekEven;
-std::vector<int> weekOdd;
 
-short dayNumber = 1;												//tracking days passed
+short dayNumber = 0;												//tracking days passed
 bool evenWeek = 1;
+short semesterNumber = 1;
+short simulationNumber = 1;
 
 int main(int argc, char* argv[])
 {
 	unsigned char button;
-
-	getFromFile(argv[1], staff, academics, classroom);
-
-	updateStatus(staff, academics, classroom);
 	
+	getFromFile(argv[1], professors, academics, classroom);
+
+	saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);
+	dayNumber++;
+
 	do
 	{																			//after each day
 		button = _getch();
-		if (static_cast <int>(button) == 13)
+		if (static_cast <int>(button) == 13)									//if enter pressed, go to thru the day
 		{
-			std::cout << "Day: " << dayNumber << "\n";
-			getLectures(staff, classroom, dayNumber, isOdd(dayNumber));
-			updateStatus(staff, academics, classroom);
+			getLectures(professors, classroom, dayNumber, isOdd(dayNumber), semesterNumber);
+			getExercises(academics, classroom, dayNumber, isOdd(dayNumber));
+			Afterhours(classroom, isWeekend(dayNumber));
+			saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);	
 			dayNumber++;
 		}
-	} while (static_cast <int>(button) != 27);
+	} while (static_cast <int>(button) != 27);									//ESC stops the simulation
 
 	return 0;
 }

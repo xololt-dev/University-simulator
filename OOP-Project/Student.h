@@ -11,8 +11,11 @@ class Student
 	short attendanceFrequency;
 
 public:
-	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
-	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);
+	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);					//constructor Student
+	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);		//function to set parameters after construction
+	void setSKnowledge(short knowledge_);
+	void setSFatigue(short fatigue_);
+
 	int showSId();
 	short showSKnowledge();
 	short showSFatigue();
@@ -20,7 +23,9 @@ public:
 	bool showSStudying();
 	short showSAttendanceFrequency();
 };
-
+/*
+* concept - not sure if gonna be implemented in final version
+* 
 class Drinker : public Student
 {
 	short partyingFrequency;
@@ -35,6 +40,6 @@ class Crammer : public Student
 	short studyingFrequency;
 public:
 	//can fail first time - function needed
-};
+};*/
 
 #endif
