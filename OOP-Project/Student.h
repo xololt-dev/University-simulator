@@ -8,13 +8,13 @@ class Student
 	short fatigue;
 	short semester;
 	bool studying;
-	short attendanceFrequency;
+	short attendanceFrequency;					//or working
 
 public:
 	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);					//constructor Student
 	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);		//function to set parameters after construction
-	void setSKnowledge(short knowledge_);
-	void setSFatigue(short fatigue_);
+	void updateKnowledge(short knowledge_);
+	void updateFatigue(short fatigue_);
 
 	int showSId();
 	short showSKnowledge();
