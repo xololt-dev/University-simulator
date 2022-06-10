@@ -143,7 +143,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Staff.cpp" />
     <ClCompile Include="Student.cpp" />
-    <ClCompile Include="Day.cpp" />
     <ClCompile Include="Save.cpp" />
     <ClCompile Include="Afterhours.cpp" />
   </ItemGroup>
