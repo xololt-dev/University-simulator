@@ -41,19 +41,16 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 						{
 							if (classroom_[j].showSFatigue() < 89)
 							{
-								knowledgeAfter = classroom_[j].showSKnowledge() + professors_[i].lecture.showKnowledgeToGain();
-								fatigueAfter = classroom_[j].showSFatigue() + 10;
-								//classroom_[j].setSKnowledge(knowledgeAfter);				//to change later!
-								//classroom_[j].setSFatigue(fatigueAfter);
-								classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
+								classroom_[j].updateFatigue(10);
+								classroom_[j].updateKnowledge(professors_[i].lecture.showKnowledgeToGain());
 							}
-							else
+							else						//maybe pow(-1,classroom_[j].showSFatigue()/90) is faster than if check?
 							{
-								knowledgeAfter = classroom_[j].showSKnowledge() - professors_[i].lecture.showKnowledgeToGain();
-								fatigueAfter = classroom_[j].showSFatigue() - 10;
-								classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());
+								classroom_[j].updateFatigue(-10);
+								classroom_[j].updateKnowledge(-(professors_[i].lecture.showKnowledgeToGain()));
+
 							}
-						}
+						}						
 					}
 				}
 			}
@@ -109,20 +106,17 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 				{
 					if (classroom_[j].showSFatigue() < 89)
 					{
-						knowledgeAfter = classroom_[j].showSKnowledge() + academics_[i].exercise.showKnowledgeToGain();
-						fatigueAfter = classroom_[j].showSFatigue() + 10;
-						classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());			//probably need 2 separate functions for this aka WIP
+						classroom_[j].updateFatigue(10);
+						classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
 					}
 					else
 					{
-						knowledgeAfter = classroom_[j].showSKnowledge() - academics_[i].exercise.showKnowledgeToGain();
-						fatigueAfter = classroom_[j].showSFatigue() - 10;
-						classroom_[j].setSParameters(classroom_[j].showSId(), knowledgeAfter, fatigueAfter, classroom_[j].showSSemester(), classroom_[j].showSStudying());
+						classroom_[j].updateFatigue(-10);
+						classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
 					}
 				}
 			}
-		}
-		
+		}		
 		//needs to have a check for tests (2 tests equals test in the middle of semester and at the end, three = 1/3 of semester, 2/3 and end etc etc)
 	}
 }
