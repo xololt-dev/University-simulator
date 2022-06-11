@@ -21,11 +21,15 @@ void Student::setSParameters(int id_, short knowledge_, short fatigue_, short se
 void Student::updateFatigue(short fatigue_)
 {
 	fatigue += fatigue_;
+	if (Student::showSFatigue() < 0) fatigue = 0;
+	if (Student::showSFatigue() > 100) fatigue = 100;
 }
 
 void Student::updateKnowledge(short knowledge_)
 {
 	knowledge += knowledge_;
+	if (Student::showSKnowledge() < 0) knowledge = 0;
+	if (Student::showSKnowledge() > 100) knowledge = 100;
 }
 
 int Student::showSId()
