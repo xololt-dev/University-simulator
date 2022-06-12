@@ -44,7 +44,6 @@ int main(int argc, char* argv[])
 	classroomRef.assign(classroom.begin(), classroom.end());
 
 	saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);
-	dayNumber++;
 
 	if (professors.size() < 11 && academics.size() < 11 && classroom.size() < 57)
 	{
@@ -57,8 +56,8 @@ int main(int argc, char* argv[])
 		std::string semesterString = std::to_string(simulationNumber);
 		std::string simString = std::to_string(simulationNumber);
 		sf::Text dayT(dayString, font);
-		sf::Text semesterT(dayString, font);
-		sf::Text simT(dayString, font);
+		sf::Text semesterT(semesterString, font);
+		sf::Text simT(simString, font);
 		dayT.setFillColor(sf::Color::White);
 		dayT.setPosition(412, 512);
 		semesterT.setFillColor(sf::Color::White);
@@ -100,32 +99,34 @@ int main(int argc, char* argv[])
 				if (semesterNumber < semesterAmount) 		//going between semesters
 				{
 					semesterNumber++;
-					semesterString = std::to_string(semesterNumber);
-					semesterT.setString(semesterString);
 					for (short i = 0; i < classroom.size(); i++)
 					{
 						if (classroom[i].showStudying())
 						{
-							classroom[i].updateFatigue(-33);
+							classroom[i].updateFatigue(-50);
 							classroom[i].updateSemester();
 						}						
 					}
 				}
-				else if (semesterNumber >= semesterAmount && simulationNumber < std::atoi(argv[3]))			//if there are still simulations left
-				{
+				else if (semesterNumber == semesterAmount && simulationNumber < std::atoi(argv[3]))			//if there are still simulations left
+				{					
 					simulationNumber++;
 					semesterNumber = 1;
-
+					
 					semesterString = std::to_string(semesterNumber);
 					semesterT.setString(semesterString);
-					
+
 					simString = std::to_string(simulationNumber);
 					simT.setString(simString);
 
 					professors.assign(professorsRef.begin(), professorsRef.end());
 					academics.assign(academicsRef.begin(), academicsRef.end());
 					classroom.assign(classroomRef.begin(), classroomRef.end());
-				}				
+				}
+				else if (semesterNumber == semesterAmount && simulationNumber == std::atoi(argv[3]))
+				{
+					simulationNumber++;
+				}
 				else
 				{
 					event.type = sf::Event::Closed;
@@ -134,6 +135,16 @@ int main(int argc, char* argv[])
 			}
 			else
 			{
+				if (dayNumber == 1 && semesterNumber > 1)
+				{
+					semesterString = std::to_string(semesterNumber);
+					semesterT.setString(semesterString);
+				}
+				if (dayNumber == 1 && simulationNumber > std::atoi(argv[3]))
+				{
+					event.type = sf::Event::Closed;
+					window.close();
+				}
 				for (short i = 0; i < classroom.size(); i++)
 				{
 					window.draw(classroomDisplay[i]);
