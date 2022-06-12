@@ -42,14 +42,13 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 						{
 							if (classroom_[j].showFatigue() < 89)
 							{
-								classroom_[j].updateFatigue(3);
+								classroom_[j].updateFatigue(2);
 								classroom_[j].updateKnowledge(professors_[i].lecture.showKnowledgeToGain());
 							}
 							else						//maybe pow(-1,classroom_[j].showFatigue()/90) is faster than if check?
 							{
-								classroom_[j].updateFatigue(-3);
+								classroom_[j].updateFatigue(-1);
 								classroom_[j].updateKnowledge(-(professors_[i].lecture.showKnowledgeToGain()));
-
 							}
 						}						
 					}
@@ -110,12 +109,12 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 					{
 						if (classroom_[j].showFatigue() < 89)
 						{
-							classroom_[j].updateFatigue(5);
+							classroom_[j].updateFatigue(4);
 							classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
 						}
 						else
 						{
-							classroom_[j].updateFatigue(-5);
+							classroom_[j].updateFatigue(-3);
 							classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
 						}
 					}					

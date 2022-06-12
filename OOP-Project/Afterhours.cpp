@@ -19,7 +19,7 @@ void Afterhours(std::vector<Student>& classroom_, bool isWeekend_)
 {
 	bool sleep;
 	srand(time(NULL));
-	int random; //= std::rand() % 9;
+	int random = std::rand() % 9;
 	int w;
 	switch (isWeekend_)	//student does one activity during 	the weekday and up to 3 during the weekend
 	{
@@ -41,7 +41,6 @@ void Afterhours(std::vector<Student>& classroom_, bool isWeekend_)
 		{
 			for (int i = 0; i < w; i++)				//goes ones or thrice depending on weekday
 			{
-				random = std::rand() % 9;
 				if (random >= 0 && random < 4)		//activities with random chances of occuring 
 					goRelax(classroom_[j]);
 				else if (random >= 4 && random < 8)
@@ -61,30 +60,29 @@ void Afterhours(std::vector<Student>& classroom_, bool isWeekend_)
 void getSleep(Student classroom_)
 {
 	//passive bonus that lowers fatigue
-	classroom_.updateFatigue(-5);
+	classroom_.updateFatigue(-6);
 }
 void goRelax(Student classroom_)
 {
 	//opcianal fatiuge lowering
-	classroom_.updateFatigue(-1);
+	classroom_.updateFatigue(-2);
 }
 void goStudy(Student classroom_)
 {
 	//opcional small knowledge gain
 	classroom_.updateKnowledge(1);
-	classroom_.updateFatigue(2);	//added by Jacob
 }
 void goParty(Student classroom_)
 {
 	//random event
 	//this funcion cancels sleep bonus and lowers knowledge by a point (done up there in aftehours())
 	classroom_.updateFatigue(4);
-	classroom_.updateKnowledge(-2);
+	classroom_.updateKnowledge(-1);
 }
 void goWork(Student classroom_)
 {
 	//if student is going to work he's going to be tired and have no time to do anything else during the weekday(done up there in aftehours())
-	classroom_.updateFatigue(6);
+	classroom_.updateFatigue(4);
 }
 //possible other random events
 //just add funcion here and increase random module and else if case*/
