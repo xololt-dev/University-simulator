@@ -62,7 +62,7 @@ bool Student::showSStudying()
 	return studying;
 }
 
-short Student::showSAttendanceFrequency()
+bool Student::showWorking()
 {
-	return attendanceFrequency;
+	return working;
 }
