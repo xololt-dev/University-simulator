@@ -18,16 +18,19 @@ const short semesterAmount = 7;
 std::vector<Professor> professors;										//vectors to contain Professors, Academics and Students
 std::vector<Academic> academics;
 std::vector<Student> classroom;
+std::vector<Professor> professorsRef;
+std::vector<Academic> academicsRef;
+std::vector<Student> classroomRef;
 
-std::vector<sf::CircleShape> professorsDisplay;										//vectors to contain Professors, Academics and Students
+std::vector<sf::CircleShape> professorsDisplay;										//vectors to contain displayed objects
 std::vector<sf::CircleShape> academicsDisplay;
 std::vector<sf::CircleShape> classroomDisplay;
-std::vector<sf::Text> professorsDisplayText;										//vectors to contain Professors, Academics and Students
+std::vector<sf::Text> professorsDisplayText;
 std::vector<sf::Text> academicsDisplayText;
 std::vector<sf::Text> classroomDisplayText;
 
 short dayNumber = 0;												//tracking days passed
-bool evenWeek = 1;
+//bool evenWeek = 1;
 short semesterNumber = 1;
 short simulationNumber = 1;
 
@@ -36,6 +39,10 @@ int main(int argc, char* argv[])
 	unsigned char button;
 	
 	getFromFile(argv[1], professors, academics, classroom);
+
+	professorsRef.assign(professors.begin(), professors.end());
+	academicsRef.assign(academics.begin(), academics.end());
+	classroomRef.assign(classroom.begin(), classroom.end());
 
 	saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);
 	dayNumber++;
@@ -46,10 +53,19 @@ int main(int argc, char* argv[])
 
 		sf::Font font;
 		font.loadFromFile("LatoWeb-Bold.ttf");
+
 		std::string dayString = std::to_string(dayNumber);
+		std::string semesterString = std::to_string(simulationNumber);
+		std::string simString = std::to_string(simulationNumber);
 		sf::Text dayT(dayString, font);
+		sf::Text semesterT(dayString, font);
+		sf::Text simT(dayString, font);
 		dayT.setFillColor(sf::Color::White);
-		dayT.setPosition(512, 512);
+		dayT.setPosition(412, 512);
+		semesterT.setFillColor(sf::Color::White);
+		semesterT.setPosition(512, 512);
+		simT.setFillColor(sf::Color::White);
+		simT.setPosition(612, 512);
 
 		objectsStudents(classroom, classroomDisplay, classroomDisplayText, semesterNumber, font, windowX, 1);
 
@@ -78,20 +94,54 @@ int main(int argc, char* argv[])
 			}
 
 			window.clear();
-			for (short i = 0; i < classroom.size(); i++)
-			{
-				window.draw(classroomDisplay[i]);
-				window.draw(classroomDisplayText[i]);
-				window.draw(dayT);
-			}
-			if (dayNumber == 107)
+			
+			if (dayNumber > semesterLength)
 			{
 				dayNumber = 0;
-				if (semesterNumber < 7) semesterNumber++;
-				else event.type = sf::Event::Closed;
+				if (semesterNumber < semesterAmount) 		//going between semesters
+				{
+					semesterNumber++;
+					semesterString = std::to_string(semesterNumber);
+					semesterT.setString(semesterString);
+					for (short i = 0; i < classroom.size(); i++)
+					{
+						if (classroom[i].showSStudying())
+						{
+							classroom[i].updateFatigue(-33);
+							classroom[i].updateSemester(semesterNumber);
+						}						
+					}
+				}
+				else if (semesterNumber >= semesterAmount && simulationNumber < std::atoi(argv[3]))			//if there are still simulations left
+				{
+					simulationNumber++;
+					semesterNumber = 1;
+
+					semesterString = std::to_string(semesterNumber);
+					semesterT.setString(semesterString);
+					
+					simString = std::to_string(simulationNumber);
+					simT.setString(simString);
+
+					professors.assign(professorsRef.begin(), professorsRef.end());
+					academics.assign(academicsRef.begin(), academicsRef.end());
+					classroom.assign(classroomRef.begin(), classroomRef.end());
+				}				
+				else
+				{
+					event.type = sf::Event::Closed;
+					window.close();
+				}
+			}
+			else
+			{
 				for (short i = 0; i < classroom.size(); i++)
 				{
-					classroom[i].updateFatigue(-33);
+					window.draw(classroomDisplay[i]);
+					window.draw(classroomDisplayText[i]);
+					window.draw(dayT);
+					window.draw(semesterT);
+					window.draw(simT);
 				}
 			}
 			window.display();
