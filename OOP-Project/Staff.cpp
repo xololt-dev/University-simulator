@@ -27,21 +27,6 @@ short Exercise::showETestAmount()
 {
 	return testAmount;
 }
-/*
-int Staff::showId()
-{
-	return id;
-}
-
-std::string Staff::showFirstName()
-{
-	return firstName;
-}
-
-std::string Staff::showLastName()
-{
-	return lastName;
-}*/
 
 Professor::Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {
@@ -63,34 +48,6 @@ short Professor::showPCourseDifficulty()
 {
 	return courseDifficulty;
 }
-/*
-void Professor::Lesson::setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_)
-{
-	day = day_;
-	occurence = occurence_;
-	knowledgeToGain = knowledgeToGain_;
-	currLesson = currLesson_;
-}
-
-short Professor::Lesson::showDay()
-{
-	return day;
-}
-
-char Professor::Lesson::showOccurence()
-{
-	return occurence;
-}
-
-short Professor::Lesson::showKnowledgeToGain()
-{
-	return knowledgeToGain;
-}
-
-short Professor::Lesson::showCurrLesson()
-{
-	return currLesson;
-}*/
 
 Academic::Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_)
 {

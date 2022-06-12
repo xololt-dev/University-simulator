@@ -7,7 +7,7 @@
 
 bool isOdd(short dayNumber_)
 {
-	return fmod(ceil(dayNumber_ / static_cast<double>(7)), 2);			//check if week is odd
+	return floor(fmod(dayNumber_ / static_cast<double>(7), 2));			//check if week is odd
 }
 
 /*
@@ -22,31 +22,32 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 	short knowledgeAfter = 0;
 	short fatigueAfter = 0;
 
-	if(dayNumber_ < 106)
+	if(dayNumber_ < 112)
 	{
 		for (short i = 0; i < professors_.size(); i++)
 		{
 			if (professors_[i].lecture.showDay() == weekDay_)
 			{
 				//there is a lecture from professor i on this day (without odd/even)
-				if (!((professors_[i].lecture.showOccurence() == '0' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
+				if (!((professors_[i].lecture.showOccurence() == 'O' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
 				{
+					professors_[i].lecture.updateCurrLesson();
 					/*
 					there is a lecture from professor i on this day (WITH odd/even)
 					give student exp if attending the lecture
 					*/
 					for (short j = 0; j < classroom_.size(); j++)
 					{
-						if (classroom_[j].showSStudying())			//checking if student is still studying 
+						if (classroom_[j].showStudying())			//checking if student is still studying 
 						{
-							if (classroom_[j].showSFatigue() < 89)
+							if (classroom_[j].showFatigue() < 89)
 							{
-								classroom_[j].updateFatigue(10);
+								classroom_[j].updateFatigue(2);
 								classroom_[j].updateKnowledge(professors_[i].lecture.showKnowledgeToGain());
 							}
-							else						//maybe pow(-1,classroom_[j].showSFatigue()/90) is faster than if check?
+							else						//maybe pow(-1,classroom_[j].showFatigue()/90) is faster than if check?
 							{
-								classroom_[j].updateFatigue(-10);
+								classroom_[j].updateFatigue(-1);
 								classroom_[j].updateKnowledge(-(professors_[i].lecture.showKnowledgeToGain()));
 
 							}
@@ -56,7 +57,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 			}
 		}
 	}
-	else if (dayNumber_ == 106)									//if day 106, go thru exams,	seems to be working fine
+	else if (dayNumber_ == 112)									//if day 106, go thru exams,	seems to be working fine
 	{
 		double examVariable = (14 + 8 * semesterNumber_ - pow(static_cast<double>(semesterNumber_), 2))/(7 * static_cast<double>(semesterNumber_));			//for exam function (difficulty with semsters)
 		double examVariablePow = 0;																															//for pow funct. later
@@ -70,13 +71,13 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 
 				for (short j = 0; j < classroom_.size(); j++)	//go thru exam for each student
 				{
-					if (classroom_[j].showSStudying())
+					if (classroom_[j].showStudying())
 					{
-						double eqVar = examVariable * static_cast<double>(classroom_[j].showSKnowledge()) / 100 * 7 / static_cast<double>(semesterNumber_);			//if failed exam, end of simulation for that person
+						double eqVar = examVariable * static_cast<double>(classroom_[j].showKnowledge()) / 100 * 7 / static_cast<double>(semesterNumber_);			//if failed exam, end of simulation for that person
 
 						if (!(eqVar > 1))				//if eqVar is above 1, the student has more knowledge than max required for this semester aka automatic pass
 						{
-							if ((1 / (1 + pow(((1 - (eqVar / examVariable)) / eqVar), examVariablePow))) < 0.5000)	classroom_[j].setSParameters(classroom_[j].showSId(), classroom_[j].showSKnowledge(), classroom_[j].showSFatigue(), classroom_[j].showSSemester(), 0);
+							if ((1 / (1 + pow(((1 - (eqVar / examVariable)) / eqVar), examVariablePow))) < 0.5000)	classroom_[j].updateStudying();
 						}
 					}
 				}
@@ -96,24 +97,28 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 		if (academics_[i].exercise.showDay() == weekDay_)
 		{
 			//there is an exercise with the academic on this day (without odd/even)
-			if (!((academics_[i].exercise.showOccurence() == '0' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
+			if (!((academics_[i].exercise.showOccurence() == 'O' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
 			{
+				academics_[i].exercise.updateCurrLesson();
 				/*
 				there is a lecture from professor i on this day (WITH odd/even)
 				give student exp if attending the lecture
 				*/
 				for (short j = 0; j < classroom_.size(); j++)
 				{
-					if (classroom_[j].showSFatigue() < 89)
+					if (classroom_[j].showStudying())
 					{
-						classroom_[j].updateFatigue(10);
-						classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
-					}
-					else
-					{
-						classroom_[j].updateFatigue(-10);
-						classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
-					}
+						if (classroom_[j].showFatigue() < 89)
+						{
+							classroom_[j].updateFatigue(4);
+							classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
+						}
+						else
+						{
+							classroom_[j].updateFatigue(-3);
+							classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
+						}
+					}					
 				}
 			}
 		}		
