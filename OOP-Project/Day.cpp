@@ -7,7 +7,7 @@
 
 bool isOdd(short dayNumber_)
 {
-	return fmod(ceil(dayNumber_ / static_cast<double>(7)), 2);			//check if week is odd
+	return floor(fmod(dayNumber_ / static_cast<double>(7), 2));			//check if week is odd
 }
 
 /*
@@ -29,7 +29,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 			if (professors_[i].lecture.showDay() == weekDay_)
 			{
 				//there is a lecture from professor i on this day (without odd/even)
-				if (!((professors_[i].lecture.showOccurence() == '0' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
+				if (!((professors_[i].lecture.showOccurence() == 'O' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
 				{
 					professors_[i].lecture.updateCurrLesson();
 					/*
@@ -97,7 +97,7 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 		if (academics_[i].exercise.showDay() == weekDay_)
 		{
 			//there is an exercise with the academic on this day (without odd/even)
-			if (!((academics_[i].exercise.showOccurence() == '0' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
+			if (!((academics_[i].exercise.showOccurence() == 'O' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
 			{
 				academics_[i].exercise.updateCurrLesson();
 				/*
