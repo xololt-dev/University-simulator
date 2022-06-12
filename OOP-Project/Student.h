@@ -15,6 +15,7 @@ public:
 	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);		//function to set parameters after construction
 	void updateKnowledge(short knowledge_);
 	void updateFatigue(short fatigue_);
+	void updateSemester(short semester_);
 
 	int showSId();
 	short showSKnowledge();

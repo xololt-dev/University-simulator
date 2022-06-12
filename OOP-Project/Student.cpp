@@ -32,6 +32,11 @@ void Student::updateKnowledge(short knowledge_)
 	if (Student::showSKnowledge() > 100) knowledge = 100;
 }
 
+void Student::updateSemester(short semester_)
+{
+	semester = semester_;
+}
+
 int Student::showSId()
 {
 	return id;
