@@ -22,7 +22,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 	short knowledgeAfter = 0;
 	short fatigueAfter = 0;
 
-	if(dayNumber_ < 106)
+	if(dayNumber_ < 105)
 	{
 		for (short i = 0; i < professors_.size(); i++)
 		{
@@ -56,7 +56,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 			}
 		}
 	}
-	else if (dayNumber_ == 106)									//if day 106, go thru exams,	seems to be working fine
+	else if (dayNumber_ == 105)									//if day 106, go thru exams,	seems to be working fine
 	{
 		double examVariable = (14 + 8 * semesterNumber_ - pow(static_cast<double>(semesterNumber_), 2))/(7 * static_cast<double>(semesterNumber_));			//for exam function (difficulty with semsters)
 		double examVariablePow = 0;																															//for pow funct. later
@@ -104,16 +104,19 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 				*/
 				for (short j = 0; j < classroom_.size(); j++)
 				{
-					if (classroom_[j].showSFatigue() < 89)
+					if (classroom_[j].showSStudying())			//checking if student is still studying
 					{
-						classroom_[j].updateFatigue(5);
-						classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
-					}
-					else
-					{
-						classroom_[j].updateFatigue(-5);
-						classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
-					}
+						if (classroom_[j].showSFatigue() < 89)
+						{
+							classroom_[j].updateFatigue(4);
+							classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
+						}
+						else
+						{
+							classroom_[j].updateFatigue(-4);
+							classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
+						}
+					}					
 				}
 			}
 		}		
