@@ -12,7 +12,7 @@
 
 const short windowX = 1024;
 const short windowY = 768;
-const short semesterLength = 105;
+const short semesterLength = 112;
 const short semesterAmount = 7;
 
 std::vector<Professor> professors;										//vectors to contain Professors, Academics and Students
@@ -30,7 +30,6 @@ std::vector<sf::Text> academicsDisplayText;
 std::vector<sf::Text> classroomDisplayText;
 
 short dayNumber = 0;												//tracking days passed
-//bool evenWeek = 1;
 short semesterNumber = 1;
 short simulationNumber = 1;
 
@@ -105,10 +104,10 @@ int main(int argc, char* argv[])
 					semesterT.setString(semesterString);
 					for (short i = 0; i < classroom.size(); i++)
 					{
-						if (classroom[i].showSStudying())
+						if (classroom[i].showStudying())
 						{
 							classroom[i].updateFatigue(-33);
-							classroom[i].updateSemester(semesterNumber);
+							classroom[i].updateSemester();
 						}						
 					}
 				}

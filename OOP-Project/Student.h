@@ -11,17 +11,18 @@ class Student
 	bool working;
 	
 public:
-	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);					//constructor Student
-	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_);		//function to set parameters after construction
+	Student(int id_, short knowledge_, short fatigue_, short semester_, bool studying_, bool working_);					//constructor Student
+	void setSParameters(int id_, short knowledge_, short fatigue_, short semester_, bool studying_, bool working_);		//function to set parameters after construction
 	void updateKnowledge(short knowledge_);
 	void updateFatigue(short fatigue_);
-	void updateSemester(short semester_);
+	void updateSemester();
+	void updateStudying();
 
 	int showSId();
-	short showSKnowledge();
-	short showSFatigue();
-	short showSSemester();
-	bool showSStudying();
+	short showKnowledge();
+	short showFatigue();
+	short showSemester();
+	bool showStudying();
 	bool showWorking();
 };
 /*

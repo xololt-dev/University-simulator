@@ -27,14 +27,14 @@ void objectsStudentsCircles(std::vector<Student>& classroom_, std::vector<sf::Ci
 			x = 0;
 			y += 73;
 		}
-		if (classroom_[i].showSStudying())
+		if (classroom_[i].showStudying())
 		{
-			if (classroom_[i].showSKnowledge() < halfwayKnowledge)						//from red to yellow
+			if (classroom_[i].showKnowledge() < halfwayKnowledge)						//from red to yellow
 			{
 				rgbRed = 255;
-				rgbGreen = (510 * classroom_[i].showSKnowledge()) / ((14 * semesterNumber_) + 1);		//510 colours red-yellow-green
+				rgbGreen = (510 * classroom_[i].showKnowledge()) / ((14 * semesterNumber_) + 1);		//510 colours red-yellow-green
 			}
-			else if (classroom_[i].showSKnowledge() > (2 * halfwayKnowledge))			//green - too knowledgeable ;p
+			else if (classroom_[i].showKnowledge() > (2 * halfwayKnowledge))			//green - too knowledgeable ;p
 			{
 				rgbGreen = 255;
 				rgbRed = 0;
@@ -42,18 +42,18 @@ void objectsStudentsCircles(std::vector<Student>& classroom_, std::vector<sf::Ci
 			else																		//yellow to green 
 			{
 				rgbGreen = 255;
-				rgbRed = 255 - (510 * (classroom_[i].showSKnowledge() - halfwayKnowledge)) / ((14 * semesterNumber_) + 1);
+				rgbRed = 255 - (510 * (classroom_[i].showKnowledge() - halfwayKnowledge)) / ((14 * semesterNumber_) + 1);
 			}
 
-			if (classroom_[i].showSFatigue() > 49)			//green - too knowledgeable ;p
+			if (classroom_[i].showFatigue() > 49)			//green - too knowledgeable ;p
 			{
 				rgbRedO = 255;
-				rgbGreenO = (510 * (100 - classroom_[i].showSFatigue())) / 100;		//510 colours red-yellow-green
+				rgbGreenO = (510 * (100 - classroom_[i].showFatigue())) / 100;		//510 colours red-yellow-green
 			}
 			else																		//yellow to green 
 			{
 				rgbGreenO = 255;
-				rgbRedO = (510 * classroom_[i].showSFatigue()) / 100;
+				rgbRedO = (510 * classroom_[i].showFatigue()) / 100;
 			}
 		}
 		else
