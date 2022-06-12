@@ -83,14 +83,16 @@ void getFromFile(std::string filename, std::vector<Professor>& professors_, std:
 			short fatigueS;
 			short semesterS;
 			bool studyingS;
+			bool workingS;
 
 			input >> idS;
 			input >> knowledgeS;
 			input >> fatigueS;
 			input >> semesterS;
 			input >> studyingS;
+			input >> workingS;
 
-			classroom_.emplace_back(idS, knowledgeS, fatigueS, semesterS, studyingS);					//aaaand into vector you go!
+			classroom_.emplace_back(idS, knowledgeS, fatigueS, semesterS, studyingS, workingS);					//aaaand into vector you go!
 			std::cout << "Student number " << classroom_.size() << " created!" << "\n";
 			
 			readString = "";
@@ -134,8 +136,8 @@ void saveToFile(std::string filename_, std::vector<Professor>& professors_, std:
 	output << "Classroom: \n";
 	for (int i = 0; i < classroom_.size(); i++)
 	{
-		std::cout << classroom_[i].showSId() << "\t" << classroom_[i].showSKnowledge() << "\t" << classroom_[i].showSFatigue() << "\t" << classroom_[i].showSSemester() << "\t" << classroom_[i].showSStudying() << "\n";
-		output << classroom_[i].showSId() << "\t" << classroom_[i].showSKnowledge() << "\t" << classroom_[i].showSFatigue() << "\t" << classroom_[i].showSSemester() << "\t" << classroom_[i].showSStudying() << "\n";
+		std::cout << classroom_[i].showSId() << "\t" << classroom_[i].showKnowledge() << "\t" << classroom_[i].showFatigue() << "\t" << classroom_[i].showSemester() << "\t" << classroom_[i].showStudying() << "\t" << classroom_[i].showWorking() << "\n";
+		output << classroom_[i].showSId() << "\t" << classroom_[i].showKnowledge() << "\t" << classroom_[i].showFatigue() << "\t" << classroom_[i].showSemester() << "\t" << classroom_[i].showStudying() << "\t" << classroom_[i].showWorking() << "\n";
 	}
 
 	output.close();
