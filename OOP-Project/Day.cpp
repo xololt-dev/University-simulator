@@ -31,6 +31,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 				//there is a lecture from professor i on this day (without odd/even)
 				if (!((professors_[i].lecture.showOccurence() == '0' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
 				{
+					professors_[i].lecture.updateCurrLesson();
 					/*
 					there is a lecture from professor i on this day (WITH odd/even)
 					give student exp if attending the lecture
@@ -98,6 +99,7 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 			//there is an exercise with the academic on this day (without odd/even)
 			if (!((academics_[i].exercise.showOccurence() == '0' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
 			{
+				academics_[i].exercise.updateCurrLesson();
 				/*
 				there is a lecture from professor i on this day (WITH odd/even)
 				give student exp if attending the lecture

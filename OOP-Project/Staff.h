@@ -16,6 +16,7 @@ public:
 	virtual char showOccurence() = 0;
 	virtual short showKnowledgeToGain() = 0;
 	virtual short showCurrLesson() = 0;
+	virtual void updateCurrLesson() = 0;
 };
 
 class Exercise : public Lesson											//newly added
@@ -43,26 +44,16 @@ public:
 	{
 		return currLesson;
 	}
+	virtual void updateCurrLesson()
+	{
+		currLesson += 1;
+	}
 };
 
 class Lecture : public Lesson
 {
 	bool examCheck;				//Exam
-	/*
-	bool Exam(short knowledge_, short courseDifficulty_)
-	{
-		if (knowledge_ >= courseDifficulty_)
-			return true;
-		else
-			return false;
-	}
-	short GainKnowledge(short& fatigue_, short& knowledge_, short knowledgeToGain)
-	{
-		//add attendence conditon if not done outside
-		knowledge_ += knowledgeToGain;
-		fatigue_--;
-	}
-	*/
+
 public:
 	void setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, bool examCheck_);
 	
@@ -83,6 +74,10 @@ public:
 	virtual short showCurrLesson()
 	{
 		return currLesson;
+	}
+	virtual void updateCurrLesson()
+	{
+		currLesson += 1;
 	}
 };
 
