@@ -1,12 +1,3 @@
-/*
-semester - full week
-7 classes per day MAX	=>			2*5*7 = 70 professors max
-mod 7 = day				+			mod 2 = even/odd
-
-professors - in table/vector
-professors - max cap or not?
-*/
-
 #include <iostream>
 #include <vector>
 #include <conio.h>
