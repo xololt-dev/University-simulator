@@ -8,7 +8,8 @@
 
 bool isOdd(short dayNumber_);
 
-void getLectures(std::vector<Professor>& professors_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, short semesterNumber_);			//searches thru professors to figure out which Lectures happen on that day
-void getExercises(std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_);											//searches thru academics to figure out which exercises happen on that day
+void getLectures(std::vector<Professor>& professors_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, short semesterNumber_, std::vector<short>& simulationParameters_);			//searches thru professors to figure out which Lectures happen on that day
+void getExercises(std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, std::vector<short>& simulationParameters_);											//searches thru academics to figure out which exercises happen on that day
+void Day(std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, short semesterNumber_, std::vector<short>& simulationParameters_);
 
 #endif
