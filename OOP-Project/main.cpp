@@ -23,29 +23,47 @@ short dayNumber = 0;												//tracking days passed
 short semesterNumber = 1;
 short simulationNumber = 1;
 
+std::vector<short> simulationParameters;																		/*
+																												short sleep;
+																												short relax;
+																												short study;
+																												short partyFatigue;
+																												short partyKnowledge;
+																												short work;
+																												short lectureFatigue;
+																												short lectureFatigueRecovery;
+																												short exerciseFatigue;
+																												short exerciseFatigueRecovery;
+																												short midSemesterRecovery;
+																												short simulationsToDo;
+																												*/
+
 int main(int argc, char* argv[])
 {
 	unsigned char button;
-	
-	getFromFile(argv[1], professors, academics, classroom);
+
+	simulationParameters.resize(12);
+
+	getSimulationInfo(argv[2], argv[3], simulationParameters);
+	getObjectsInfo(argv[1], professors, academics, classroom);
 
 	professorsRef.assign(professors.begin(), professors.end());
 	academicsRef.assign(academics.begin(), academics.end());
 	classroomRef.assign(classroom.begin(), classroom.end());
 
-	saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);
+	saveToFile(argv[3], professors, academics, classroom, dayNumber, semesterNumber);
 	
 	do
 	{																			//after each day
 		button = _getch();
 		if (static_cast <int>(button) == 13)									//if enter pressed, go to thru the day
 		{
-			while(simulationNumber <= std::stoi(argv[3]))
+			while(simulationNumber <= simulationParameters[11])
 			{
-				getLectures(professors, classroom, dayNumber, isOdd(dayNumber), semesterNumber);
-				getExercises(academics, classroom, dayNumber, isOdd(dayNumber));
-				Afterhours(classroom, isWeekend(dayNumber));
-				saveToFile(argv[2], professors, academics, classroom, dayNumber, semesterNumber);
+				Day(professors, academics, classroom, dayNumber, isEven(dayNumber), semesterNumber, simulationParameters);
+				Afterhours(classroom, isWeekend(dayNumber), simulationParameters);
+
+				saveToFile(argv[3], professors, academics, classroom, dayNumber, semesterNumber);
 				dayNumber++;
 
 				if (dayNumber > semesterLength)
@@ -58,14 +76,14 @@ int main(int argc, char* argv[])
 						{
 							if (classroom[i].showStudying())
 							{
-								classroom[i].updateFatigue(-50);
+								classroom[i].updateFatigue(simulationParameters[10]);
 								classroom[i].updateSemester();
 							}
 						}
 					}
 					else if (semesterNumber == semesterAmount)			//if there are still simulations left
 					{
-						if (simulationNumber == std::stoi(argv[3])) goto end;
+						if (simulationNumber == simulationParameters[11]) goto end;
 						button = _getch();
 						if (static_cast <int>(button) == 27) break;
 
