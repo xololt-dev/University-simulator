@@ -42,13 +42,11 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 						{
 							if (classroom_[j].showFatigue() < 89)
 							{
-								//classroom_[j].updateFatigue(2);
 								classroom_[j].updateFatigue(simulationParameters_[6]);
 								classroom_[j].updateKnowledge(professors_[i].lecture.showKnowledgeToGain());
 							}
 							else						//maybe pow(-1,classroom_[j].showFatigue()/90) is faster than if check?
 							{
-								//classroom_[j].updateFatigue(-1);
 								classroom_[j].updateFatigue(simulationParameters_[7]);
 								classroom_[j].updateKnowledge(-(professors_[i].lecture.showKnowledgeToGain()));
 							}
@@ -58,7 +56,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 			}
 		}
 	}
-	else if (dayNumber_ == 112)									//if day 106, go thru exams,	seems to be working fine
+	else if (dayNumber_ == 112)									//if day 112, go thru exams
 	{
 		double examVariable = (14 + 8 * semesterNumber_ - pow(static_cast<double>(semesterNumber_), 2))/(7 * static_cast<double>(semesterNumber_));			//for exam function (difficulty with semsters)
 		double examVariablePow = 0;																															//for pow funct. later
@@ -67,8 +65,8 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 		{
 			if (professors_[i].lecture.showLExamCheck())		//does the professor have an exam
 			{
-				if (examVariable > 1)	examVariablePow = 1 - (static_cast<double>(professors_[i].showPCourseDifficulty()) / static_cast<double>(100));			//making sure formula works (at 0.5 point it misbehaves without change)
-				else	examVariablePow = static_cast<double>(professors_[i].showPCourseDifficulty()) / static_cast<double>(100);
+				if (examVariable > 1)	examVariablePow = 1 - (static_cast<double>(professors_[i].showCourseDifficulty()) / static_cast<double>(100));			//making sure formula works (at 0.5 point it misbehaves without change)
+				else	examVariablePow = static_cast<double>(professors_[i].showCourseDifficulty()) / static_cast<double>(100);
 
 				for (short j = 0; j < classroom_.size(); j++)	//go thru exam for each student
 				{
@@ -111,13 +109,11 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 					{
 						if (classroom_[j].showFatigue() < 89)
 						{
-							//classroom_[j].updateFatigue(4);
 							classroom_[j].updateFatigue(simulationParameters_[8]);
 							classroom_[j].updateKnowledge(academics_[i].exercise.showKnowledgeToGain());
 						}
 						else
 						{
-							//classroom_[j].updateFatigue(-3);
 							classroom_[j].updateFatigue(simulationParameters_[9]);
 							classroom_[j].updateKnowledge(-(academics_[i].exercise.showKnowledgeToGain()));
 						}
