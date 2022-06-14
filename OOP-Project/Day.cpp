@@ -5,7 +5,7 @@
 #include <vector>
 #include <math.h>
 
-bool isOdd(short dayNumber_)
+bool isEven(short dayNumber_)
 {
 	return floor(fmod(dayNumber_ / static_cast<double>(7), 2));			//check if week is odd
 }
@@ -16,7 +16,7 @@ if yes, go thru todays activities (getLectures, getExercises)
 otherwise, reduce fatigue
 */
 
-void getLectures(std::vector<Professor>& professors_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, short semesterNumber_, std::vector<short>& simulationParameters_)			//searches thru professors to figure out which Lectures happen on that day
+void getLectures(std::vector<Professor>& professors_, std::vector<Student>& classroom_, short dayNumber_, bool isEven_, short semesterNumber_, std::vector<short>& simulationParameters_)			//searches thru professors to figure out which Lectures happen on that day
 {
 	short weekDay_ = fmod(dayNumber_, 7);
 	short knowledgeAfter = 0;
@@ -29,7 +29,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 			if (professors_[i].lecture.showDay() == weekDay_)
 			{
 				//there is a lecture from professor i on this day (without odd/even)
-				if (!((professors_[i].lecture.showOccurence() == 'O' && !isOdd_) || (professors_[i].lecture.showOccurence() == 'E' && isOdd_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
+				if (!((professors_[i].lecture.showOccurence() == 'O' && isEven_) || (professors_[i].lecture.showOccurence() == 'E' && !isEven_)))				//checking the situations when we don't have a lecture (6 combinations, 2 times where we don't)
 				{
 					professors_[i].lecture.updateCurrLesson();
 					/*
@@ -85,7 +85,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 	}
 }
 
-void getExercises(std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, std::vector<short>& simulationParameters_)						//searches thru academics to figure out which exercises happen on that day
+void getExercises(std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isEven_, std::vector<short>& simulationParameters_)						//searches thru academics to figure out which exercises happen on that day
 {
 	short weekDay_ = fmod(dayNumber_, 7);
 	short knowledgeAfter = 0;
@@ -96,7 +96,7 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 		if (academics_[i].exercise.showDay() == weekDay_)
 		{
 			//there is an exercise with the academic on this day (without odd/even)
-			if (!((academics_[i].exercise.showOccurence() == 'O' && !isOdd_) || (academics_[i].exercise.showOccurence() == 'E' && isOdd_)))
+			if (!((academics_[i].exercise.showOccurence() == 'O' && isEven_) || (academics_[i].exercise.showOccurence() == 'E' && !isEven_)))
 			{
 				academics_[i].exercise.updateCurrLesson();
 				/*
@@ -125,8 +125,8 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 	}
 }
 
-void Day(std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isOdd_, short semesterNumber_, std::vector<short>& simulationParameters_)
+void Day(std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isEven_, short semesterNumber_, std::vector<short>& simulationParameters_)
 {
-	getLectures(professors_, classroom_, dayNumber_, isOdd_, semesterNumber_, simulationParameters_);
-	getExercises(academics_, classroom_, dayNumber_, isOdd_, simulationParameters_);
+	getLectures(professors_, classroom_, dayNumber_, isEven_, semesterNumber_, simulationParameters_);
+	getExercises(academics_, classroom_, dayNumber_, isEven_, simulationParameters_);
 }

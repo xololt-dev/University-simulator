@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
 			{
 				if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Enter))			//day passes with enter press
 				{
-					Day(professors, academics, classroom, dayNumber, isOdd(dayNumber), semesterNumber, simulationParameters);
+					Day(professors, academics, classroom, dayNumber, isEven(dayNumber), semesterNumber, simulationParameters);
 					Afterhours(classroom, isWeekend(dayNumber), simulationParameters);
 
 					objectsStudents(classroom, classroomDisplay, classroomDisplayText, semesterNumber, font, windowX, 0);
@@ -130,9 +130,6 @@ int main(int argc, char* argv[])
 				{					
 					simulationNumber++;
 					semesterNumber = 1;
-					
-					//semesterString = "Semester: " + std::to_string(semesterNumber);
-					//semesterT.setString(semesterString);
 
 					simString = "Simulation: " + std::to_string(simulationNumber);
 					simT.setString(simString);
