@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 				if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Enter))			//day passes with enter press
 				{
 					Day(professors, academics, classroom, dayNumber, isOdd(dayNumber), semesterNumber, simulationParameters);
-					Afterhours(classroom, isWeekend(dayNumber));
+					Afterhours(classroom, isWeekend(dayNumber), simulationParameters);
 
 					objectsStudents(classroom, classroomDisplay, classroomDisplayText, semesterNumber, font, windowX, 0);
 					saveToFile(argv[3], professors, academics, classroom, dayNumber, semesterNumber);
