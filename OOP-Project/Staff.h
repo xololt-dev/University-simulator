@@ -87,24 +87,23 @@ protected:
 	int id;
 	std::string firstName;
 	std::string lastName;
+	short courseDifficulty;
+
 public:
 	virtual int showId() = 0;
 	virtual std::string showFirstName() = 0;
 	virtual std::string showLastName() = 0;
+	virtual short showCourseDifficulty() = 0;
 };
 
 class Professor : public Staff
 {
-	short courseDifficulty;
-
 public:
 	Lecture lecture;
 
 	Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);						//constructor Professor
 	void setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 
-	short showPCourseDifficulty();
-
 	int showId()
 	{
 		return id;
@@ -117,20 +116,20 @@ public:
 	{
 		return lastName;
 	}
+	short showCourseDifficulty()
+	{
+		return courseDifficulty;
+	}
 };
 																
 class Academic : public Staff
-{
-	short courseDifficulty;
-	
+{	
 public:
 	Exercise exercise;
 
 	Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);				//constructor Academic
 	void setAParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 
-	short showACourseDifficulty();
-
 	int showId()
 	{
 		return id;
@@ -142,6 +141,10 @@ public:
 	std::string showLastName()
 	{
 		return lastName;
+	}
+	short showCourseDifficulty()
+	{
+		return courseDifficulty;
 	}
 };
 #endif

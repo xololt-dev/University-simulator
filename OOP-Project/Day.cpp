@@ -66,8 +66,8 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 		{
 			if (professors_[i].lecture.showLExamCheck())		//does the professor have an exam
 			{
-				if (examVariable > 1)	examVariablePow = 1 - (static_cast<double>(professors_[i].showPCourseDifficulty()) / static_cast<double>(100));			//making sure formula works (at 0.5 point it misbehaves without change)
-				else	examVariablePow = static_cast<double>(professors_[i].showPCourseDifficulty()) / static_cast<double>(100);
+				if (examVariable > 1)	examVariablePow = 1 - (static_cast<double>(professors_[i].showCourseDifficulty()) / static_cast<double>(100));			//making sure formula works (at 0.5 point it misbehaves without change)
+				else	examVariablePow = static_cast<double>(professors_[i].showCourseDifficulty()) / static_cast<double>(100);
 
 				for (short j = 0; j < classroom_.size(); j++)	//go thru exam for each student
 				{
