@@ -6,16 +6,16 @@
 #include <string>
 #include <vector>
 
-void getObjectsInfo(std::string filename_ppl, std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_)			//loading data from file
+void getObjectsInfo(std::string filename, std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_)			//loading data from file
 {
-	std::ifstream input(filename_ppl, std::ios::in);
+	std::ifstream input(filename, std::ios::in);
 
 	if (!input.is_open())
 	{
-		std::cout << "ERROR\tObjects file not found!\tERROR";
+		std::cout << "ERROR\tObjects file not found!\tERROR\n";
 		return;
 	}
-
+	
 	std::string readString;
 	int idS;
 
@@ -107,10 +107,10 @@ void getSimulationInfo(std::string filename_set, std::string saveFile_, std::vec
 
 	if (!settings.is_open())
 	{
-		std::cout << "WARNING\tDefault simulation settings!\tWARNING";
-		simulationParameters_[0] = 1; simulationParameters_[1] = -6; simulationParameters_[2] = -2; simulationParameters_[3] = 1;
-		simulationParameters_[4] = 4; simulationParameters_[5] = -1; simulationParameters_[6] = 4; simulationParameters_[7] = 2;
-		simulationParameters_[8] = -1; simulationParameters_[9] = 4; simulationParameters_[10] = -3; simulationParameters_[11] = -50;
+		std::cout << "WARNING\tDefault simulation settings!\tWARNING\n";
+		simulationParameters_[11] = 1; simulationParameters_[0] = -6; simulationParameters_[1] = -2; simulationParameters_[2] = 1;
+		simulationParameters_[3] = 4; simulationParameters_[4] = -1; simulationParameters_[5] = 4; simulationParameters_[6] = 2;
+		simulationParameters_[7] = -1; simulationParameters_[8] = 4; simulationParameters_[9] = -3; simulationParameters_[10] = -50;
 		goto save;
 	}
 	else
@@ -121,11 +121,11 @@ void getSimulationInfo(std::string filename_set, std::string saveFile_, std::vec
 		while (!settings.eof())
 		{
 			settings >> input;
-			if(i < 12)simulationParameters_[i] = input;
+			if (i < 12)simulationParameters_[i] = input;
 			i++;
 		}
 	}
-	save:
+save:
 	settings.close();
 
 	std::ofstream output(saveFile_, std::ios::out | std::ios::app);
@@ -135,7 +135,7 @@ void getSimulationInfo(std::string filename_set, std::string saveFile_, std::vec
 		std::cout << "ERROR\tFile not open!\tERROR";
 		return;
 	}
-	
+
 	for (short i = 0; i < simulationParameters_.size(); i++)
 	{
 		std::cout << simulationParameters_[i] << "\t";
