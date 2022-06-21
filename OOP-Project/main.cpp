@@ -1,6 +1,9 @@
+#ifdef _WIN32
+#include <conio.h>
+#endif
+
 #include <iostream>
 #include <vector>
-#include <conio.h>
 #include <math.h>
 #include "Student.h"
 #include "Staff.h"

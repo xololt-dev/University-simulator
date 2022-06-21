@@ -8,7 +8,7 @@
 bool isWeekend(short dayNumber_) 
 { 
 	//if it is weekend do afterhours activities funcion 3 times
-	short weekDay_ = fmod(dayNumber_, 7);
+	short weekDay_ = dayNumber_ % 7;
 	if(weekDay_ == 5 || weekDay_ == 6)
 		return true;
 	else

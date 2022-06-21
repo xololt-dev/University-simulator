@@ -7,7 +7,7 @@
 
 bool isEven(short dayNumber_)
 {
-	return floor(fmod(dayNumber_ / 7, 2));			//check if week is odd
+	return floor((dayNumber_ / 7) % 2);				//check if week is odd
 }
 
 /*
@@ -18,7 +18,7 @@ otherwise, reduce fatigue
 
 void getLectures(std::vector<Professor>& professors_, std::vector<Student>& classroom_, short dayNumber_, bool isEven_, short semesterNumber_, std::vector<short>& simulationParameters_)			//searches thru professors to figure out which Lectures happen on that day
 {
-	short weekDay_ = fmod(dayNumber_, 7);
+	short weekDay_ = dayNumber_ % 7;
 
 	if(dayNumber_ < 112)
 	{
@@ -74,6 +74,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 
 						if (!(eqVar > 1))				//if eqVar is above 1, the student has more knowledge than max required for this semester aka automatic pass
 						{
+							if (eqVar == 0)	classroom_[j].updateStudying();
 							if ((1 / (1 + pow(((1 - (eqVar / examVariable)) / eqVar), examVariablePow))) < 0.5000)	classroom_[j].updateStudying();
 						}
 					}
@@ -85,7 +86,7 @@ void getLectures(std::vector<Professor>& professors_, std::vector<Student>& clas
 
 void getExercises(std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, bool isEven_, short semesterNumber_, std::vector<short>& simulationParameters_)						//searches thru academics to figure out which exercises happen on that day
 {
-	short weekDay_ = fmod(dayNumber_, 7);
+	short weekDay_ = dayNumber_ % 7;
 	bool test = 0;
 
 	for (short i = 0; i < academics_.size(); i++)
@@ -104,12 +105,12 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 				{
 					if (academics_[i].exercise.showOccurence() == 'O')
 					{
-						if (fmod(dayNumber_, ((112 / academics_[i].exercise.showETestAmount() - 7))) < 13)	test = 1;	//test present
+						if ((dayNumber_ % ((112 / academics_[i].exercise.showETestAmount()) - 7)) < 13)		test = 1;	//test present
 					}
 					else
 					{
-						if (fmod(dayNumber_, ((112 / academics_[i].exercise.showETestAmount()) - 7)) < 6)		test = 1;	//for B & E
-					}					
+						if ((dayNumber_ % ((112 / academics_[i].exercise.showETestAmount()) - 7)) < 6)		test = 1;	//for B & E
+					}
 				}
 				for (short j = 0; j < classroom_.size(); j++)
 				{
@@ -134,8 +135,7 @@ void getExercises(std::vector<Academic>& academics_, std::vector<Student>& class
 				}
 				test = 0;
 			}
-		}		
-		//needs to have a check for tests (2 tests equals test in the middle of semester and at the end, three = 1/3 of semester, 2/3 and end etc etc)
+		}
 	}
 }
 
