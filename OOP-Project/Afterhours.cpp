@@ -8,19 +8,19 @@
 bool isWeekend(short dayNumber_) 
 { 
 	//if it is weekend do afterhours activities funcion 3 times
-	short weekDay_ = fmod(dayNumber_, 7);
+	short weekDay_ = dayNumber_ % 7;
 	if(weekDay_ == 5 || weekDay_ == 6)
 		return true;
 	else
 		return false;
 }
 
-void Afterhours(std::vector<Student>& classroom_, bool isWeekend_)
+void Afterhours(std::vector<Student>& classroom_, bool isWeekend_, std::vector<short>& simulationParameters_)
 {
-	srand(time(NULL));
-	int random = std::rand() % 9;
+	bool sleep;
+	int random;
 	int w;
-	switch (isWeekend_)
+	switch (isWeekend_)	//student does one activity during 	the weekday and up to 3 during the weekend
 	{
 	case true:
 		w = 3;
@@ -29,45 +29,63 @@ void Afterhours(std::vector<Student>& classroom_, bool isWeekend_)
 		w = 1;
 		break;
 	}
-	for (int j = 0; j < w; j++)
+	for (int j = 0; j < classroom_.size(); j++)	//going through all students
 	{
-		for (int i = 0; i < classroom_.size(); i++)
+		if (classroom_[j].showStudying())
 		{
-			if (random >= 0 && random < 4)
-				goRelax(classroom_[i]);
-			else if (random >= 4 && random < 8)
-				goStudy(classroom_[i]);
-			else if (random == 8)
-			{
-				goParty(classroom_[i]);
-				break;
+			sleep = true;									//everyone gets chance to get sleep
+			if (classroom_[j].showWorking() == true && isWeekend_ == false)  // lets assume that student works only during the week and not on weekends
+			{															//if student works he has no time for anything else during the day
+				goWork(classroom_[j], simulationParameters_[5]);
 			}
-			getSleep(classroom_[i]);
+			else										//all other students get to do freetime activities
+			{
+				srand(time(NULL));
+				random = std::rand() % 9;
+				for (int i = 0; i < w; i++)				//goes ones or thrice depending on weekday
+				{
+					if (random >= 0 && random < 4)		//activities with random chances of occuring 
+						goRelax(classroom_[j], simulationParameters_[1]);
+					else if (random >= 4 && random < 8)
+						goStudy(classroom_[j], simulationParameters_[2]);
+					else if (random == 8)			//smaller chance to go to the party then to do something else
+					{
+						goParty(classroom_[j], simulationParameters_[3], simulationParameters_[4]);
+						sleep = false;				//student does not get sleep after a party
+						break; //if students decides to party he will not be able to do anything after but it is possible for him to do something before
+					}
+				}
+			}
+			if (sleep == true)	getSleep(classroom_[j], simulationParameters_[0]);//everyone except party goers gets to sleep
 		}
 	}
 }
-
-void getSleep(Student classroom_)
+void getSleep(Student classroom_, short fatigue_)
 {
 	//passive bonus that lowers fatigue
-	classroom_.updateFatigue(-3);
+	classroom_.updateFatigue(fatigue_);
 }
-void goRelax(Student classroom_)
+void goRelax(Student classroom_, short fatigue_)
 {
 	//opcianal fatiuge lowering
-	classroom_.updateFatigue(-1);
+	classroom_.updateFatigue(fatigue_);
 }
-void goStudy(Student classroom_)
+void goStudy(Student classroom_, short knowledge_)
 {
 	//opcional small knowledge gain
-	classroom_.updateKnowledge(1);
+	classroom_.updateKnowledge(knowledge_);
 }
-void goParty(Student classroom_)
+void goParty(Student classroom_, short fatigue_, short knowledge_)
 {
 	//random event
 	//this funcion cancels sleep bonus and lowers knowledge by a point (done up there in aftehours())
-	classroom_.updateFatigue(3);
-	classroom_.updateKnowledge(-2);
+	classroom_.updateFatigue(fatigue_);
+	classroom_.updateKnowledge(knowledge_);
+}
+void goWork(Student classroom_, short fatigue_)
+{
+	//if student is going to work he's going to be tired and have no time to do anything else during the weekday(done up there in aftehours())
+	classroom_.updateFatigue(fatigue_);
 }
 //possible other random events
 //just add funcion here and increase random module and else if case

@@ -6,14 +6,13 @@
 #include <string>
 #include <vector>
 
-
-void getFromFile(std::string filename, std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_)			//loading data from file
+void getObjectsInfo(std::string filename, std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_)			//loading data from file
 {
 	std::ifstream input(filename, std::ios::in);
 
 	if (!input.is_open())
 	{
-		std::cout << "ERROR\tFile not found!\tERROR";
+		std::cout << "ERROR\tObjects file not found!\tERROR\n";
 		return;
 	}
 	
@@ -83,14 +82,16 @@ void getFromFile(std::string filename, std::vector<Professor>& professors_, std:
 			short fatigueS;
 			short semesterS;
 			bool studyingS;
+			bool workingS;
 
 			input >> idS;
 			input >> knowledgeS;
 			input >> fatigueS;
 			input >> semesterS;
 			input >> studyingS;
+			input >> workingS;
 
-			classroom_.emplace_back(idS, knowledgeS, fatigueS, semesterS, studyingS);					//aaaand into vector you go!
+			classroom_.emplace_back(idS, knowledgeS, fatigueS, semesterS, studyingS, workingS);					//aaaand into vector you go!
 			std::cout << "Student number " << classroom_.size() << " created!" << "\n";
 			
 			readString = "";
@@ -98,6 +99,51 @@ void getFromFile(std::string filename, std::vector<Professor>& professors_, std:
 	}
 
 	input.close();
+}
+
+void getSimulationInfo(std::string filename_set, std::string saveFile_, std::vector<short>& simulationParameters_)
+{
+	std::ifstream settings(filename_set, std::ios::in);
+
+	if (!settings.is_open())
+	{
+		std::cout << "WARNING\tDefault simulation settings!\tWARNING\n";
+		simulationParameters_[11] = 1; simulationParameters_[0] = -6; simulationParameters_[1] = -2; simulationParameters_[2] = 1;
+		simulationParameters_[3] = 4; simulationParameters_[4] = -1; simulationParameters_[5] = 4; simulationParameters_[6] = 2;
+		simulationParameters_[7] = -1; simulationParameters_[8] = 4; simulationParameters_[9] = -3; simulationParameters_[10] = -50;
+		goto save;
+	}
+	else
+	{
+		short input = 0;
+		short i = 0;
+
+		while (!settings.eof())
+		{
+			settings >> input;
+			if (i < 12)simulationParameters_[i] = input;
+			i++;
+		}
+	}
+save:
+	settings.close();
+
+	std::ofstream output(saveFile_, std::ios::out | std::ios::app);
+
+	if (!output.is_open())
+	{
+		std::cout << "ERROR\tFile not open!\tERROR";
+		return;
+	}
+
+	for (short i = 0; i < simulationParameters_.size(); i++)
+	{
+		std::cout << simulationParameters_[i] << "\t";
+		output << simulationParameters_[i] << "\t";
+	}
+	std::cout << "\n";
+	output << "\n";
+	output.close();
 }
 
 void saveToFile(std::string filename_, std::vector<Professor>& professors_, std::vector<Academic>& academics_, std::vector<Student>& classroom_, short dayNumber_, short semesterNumber_)			//updateStatus(professors, academics, classroom) substitute/evolution with saving
@@ -116,26 +162,26 @@ void saveToFile(std::string filename_, std::vector<Professor>& professors_, std:
 	output << "Professors: \n";
 	for (int i = 0; i < professors_.size(); i++)
 	{
-		std::cout << professors_[i].showId() << "\t" << professors_[i].showFirstName() << "\t" << professors_[i].showLastName() << "\t" << professors_[i].showPCourseDifficulty();
-		output << professors_[i].showId() << "\t" << professors_[i].showFirstName() << "\t" << professors_[i].showLastName() << "\t" << professors_[i].showPCourseDifficulty();
-		std::cout << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
-		output << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
+		std::cout << professors_[i].showId() << "\t" << professors_[i].showFirstName() << "\t" << professors_[i].showLastName() << "\t" << professors_[i].showCourseDifficulty();
+		output << professors_[i].showId() << "\t" << professors_[i].showFirstName() << "\t" << professors_[i].showLastName() << "\t" << professors_[i].showCourseDifficulty();
+		std::cout << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showCurrLesson() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
+		output << "\t" << professors_[i].lecture.showDay() << "\t" << professors_[i].lecture.showOccurence() << "\t" << professors_[i].lecture.showKnowledgeToGain() << "\t" << professors_[i].lecture.showCurrLesson() << "\t" << professors_[i].lecture.showLExamCheck() << "\n";
 	}
 	std::cout << "Academics: \n";
 	output << "Academics: \n";
 	for (int i = 0; i < academics_.size(); i++)
 	{
-		std::cout << academics_[i].showId() << "\t" << academics_[i].showFirstName() << "\t" << academics_[i].showLastName() << "\t" << academics_[i].showACourseDifficulty();
-		output << academics_[i].showId() << "\t" << academics_[i].showFirstName() << "\t" << academics_[i].showLastName() << "\t" << academics_[i].showACourseDifficulty();
-		std::cout << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
-		output << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
+		std::cout << academics_[i].showId() << "\t" << academics_[i].showFirstName() << "\t" << academics_[i].showLastName() << "\t" << academics_[i].showCourseDifficulty();
+		output << academics_[i].showId() << "\t" << academics_[i].showFirstName() << "\t" << academics_[i].showLastName() << "\t" << academics_[i].showCourseDifficulty();
+		std::cout << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showCurrLesson() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
+		output << "\t" << academics_[i].exercise.showDay() << "\t" << academics_[i].exercise.showOccurence() << "\t" << academics_[i].exercise.showKnowledgeToGain() << "\t" << academics_[i].exercise.showCurrLesson() << "\t" << academics_[i].exercise.showETestAmount() << "\n";
 	}
 	std::cout << "Classroom: \n";
 	output << "Classroom: \n";
 	for (int i = 0; i < classroom_.size(); i++)
 	{
-		std::cout << classroom_[i].showSId() << "\t" << classroom_[i].showSKnowledge() << "\t" << classroom_[i].showSFatigue() << "\t" << classroom_[i].showSSemester() << "\t" << classroom_[i].showSStudying() << "\n";
-		output << classroom_[i].showSId() << "\t" << classroom_[i].showSKnowledge() << "\t" << classroom_[i].showSFatigue() << "\t" << classroom_[i].showSSemester() << "\t" << classroom_[i].showSStudying() << "\n";
+		std::cout << classroom_[i].showSId() << "\t" << classroom_[i].showKnowledge() << "\t" << classroom_[i].showFatigue() << "\t" << classroom_[i].showSemester() << "\t" << classroom_[i].showStudying() << "\t" << classroom_[i].showWorking() << "\n";
+		output << classroom_[i].showSId() << "\t" << classroom_[i].showKnowledge() << "\t" << classroom_[i].showFatigue() << "\t" << classroom_[i].showSemester() << "\t" << classroom_[i].showStudying() << "\t" << classroom_[i].showWorking() << "\n";
 	}
 
 	output.close();

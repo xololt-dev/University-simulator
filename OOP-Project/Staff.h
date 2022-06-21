@@ -16,6 +16,7 @@ public:
 	virtual char showOccurence() = 0;
 	virtual short showKnowledgeToGain() = 0;
 	virtual short showCurrLesson() = 0;
+	virtual void updateCurrLesson() = 0;
 };
 
 class Exercise : public Lesson											//newly added
@@ -43,26 +44,16 @@ public:
 	{
 		return currLesson;
 	}
+	virtual void updateCurrLesson()
+	{
+		currLesson += 1;
+	}
 };
 
 class Lecture : public Lesson
 {
 	bool examCheck;				//Exam
-	/*
-	bool Exam(short knowledge_, short courseDifficulty_)
-	{
-		if (knowledge_ >= courseDifficulty_)
-			return true;
-		else
-			return false;
-	}
-	short GainKnowledge(short& fatigue_, short& knowledge_, short knowledgeToGain)
-	{
-		//add attendence conditon if not done outside
-		knowledge_ += knowledgeToGain;
-		fatigue_--;
-	}
-	*/
+
 public:
 	void setLParameters(short day_, char occurence_, short knowledgeToGain_, short currLesson_, bool examCheck_);
 	
@@ -84,6 +75,10 @@ public:
 	{
 		return currLesson;
 	}
+	virtual void updateCurrLesson()
+	{
+		currLesson += 1;
+	}
 };
 
 class Staff																//super class to Professor and Academic
@@ -92,24 +87,23 @@ protected:
 	int id;
 	std::string firstName;
 	std::string lastName;
+	short courseDifficulty;
+
 public:
 	virtual int showId() = 0;
 	virtual std::string showFirstName() = 0;
 	virtual std::string showLastName() = 0;
+	virtual short showCourseDifficulty() = 0;
 };
 
 class Professor : public Staff
 {
-	short courseDifficulty;
-
 public:
 	Lecture lecture;
 
 	Professor(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);						//constructor Professor
 	void setPParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 
-	short showPCourseDifficulty();
-
 	int showId()
 	{
 		return id;
@@ -122,20 +116,20 @@ public:
 	{
 		return lastName;
 	}
+	short showCourseDifficulty()
+	{
+		return courseDifficulty;
+	}
 };
 																
 class Academic : public Staff
-{
-	short courseDifficulty;
-	
+{	
 public:
 	Exercise exercise;
 
 	Academic(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);				//constructor Academic
 	void setAParameters(int id_, std::string firstName_, std::string lastName_, short courseDifficulty_);
 
-	short showACourseDifficulty();
-
 	int showId()
 	{
 		return id;
@@ -147,6 +141,10 @@ public:
 	std::string showLastName()
 	{
 		return lastName;
+	}
+	short showCourseDifficulty()
+	{
+		return courseDifficulty;
 	}
 };
 #endif
